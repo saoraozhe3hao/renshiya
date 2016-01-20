@@ -1,0 +1,9 @@
+[ 2015-12-09T17:54:17+08:00 ] ::1 /phpDemo/thinkPhpMain.php?c=dd
+ERR: 无法加载控制器:Dd
+
+[ 2015-12-09T18:32:47+08:00 ] ::1 //phpdemo/thinkphpmain.php/home/index/inde
+ERR: 非法操作:inde
+
+[ 2015-12-09T22:02:34+08:00 ] ::1 //phpdemo/thinkphpmain.php
+ERR: 模板不存在:./ThinkPHPDemo/Home/View/Index/index.html
+

@@ -1,0 +1,21 @@
+{
+  "name": "siwuyi",
+  "description": "公司产品展示网站积累.",
+  "license": "MIT",
+  "moduleType": "globals",
+  "ignore": [
+    "/.*",
+    "_config.yml",
+    "CNAME",
+    "composer.json",
+    "CONTRIBUTING.md",
+    "docs",
+    "js/tests",
+    "test-infra"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.1",
+    "angular-route": "~1.4.3",
+    "angular": "~1.4.3"
+  }
+}

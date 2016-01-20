@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2016 年 01 月 19 日 16:17
+-- 生成日期: 2016 年 01 月 20 日 00:05
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `commont_to` int(11) NOT NULL COMMENT '被评论人',
   `score` int(11) NOT NULL COMMENT '评分',
   `content` varchar(1024) NOT NULL COMMENT '评论内容',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
   PRIMARY KEY (`id`),
   KEY `commont_to` (`commont_to`),
   KEY `comment_by` (`comment_by`)
