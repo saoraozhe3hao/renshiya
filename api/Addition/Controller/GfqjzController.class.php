@@ -26,23 +26,106 @@ class GfqjzController  extends RestController {
         echo $this->response($data,'json');
     }
     
+    public function position_post(){
+        $Position = M("Add_gfqjz_position");
+        $_POST = json_decode (file_get_contents('php://input'),true);
+    
+        $data = array(
+            'publish_id'=>$_SESSION["user"]['id'],
+            'address'=>$_POST['address'],
+            "description"=>$_POST['description'],
+            "spot"=>$_POST['spot'],
+            "day_flag"=>$_POST['day_flag'],
+            "reward"=>$_POST['reward'],
+            "term"=>$_POST['term'],
+            "number"=>$_POST['number'],
+            "status"=>0
+        );
+        $Position->add($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
+    
+    public function position_put(){
+        $Position = M("Add_gfqjz_position");
+        $_PUT = json_decode (file_get_contents('php://input'),true);
+    
+        $data = array(
+            'publish_id'=>$_SESSION["user"]['id'],
+            'address'=>$_PUT['address'],
+            "description"=>$_PUT['description'],
+            "spot"=>$_PUT['spot'],
+            "day_flag"=>$_PUT['day_flag'],
+            "reward"=>$_PUT['reward'],
+            "term"=>$_PUT['term'],
+            "number"=>$_PUT['number'],
+            "status"=>0
+        );
+        $Position ->where('id='.$_GET['id'])->save($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
+    
+    public function position_delete(){
+        $Position = M("Add_gfqjz_position");
+        $_PUT = json_decode (file_get_contents('php://input'),true);
+        
+        $data = array(
+            "status"=>1
+        );
+        $Position ->where('id='.$_GET['id'])->save($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
+    
     public function instance_post(){
         $Position = M("Add_gfqjz_position");
         $Instance = M("Add_gfqjz_instance");
+        $UserBill = M("User_bill");
         $_POST = json_decode (file_get_contents('php://input'),true);
         
-        $pasitionData = $Position->where( 'status=0 AND id='.$_POST['positionId'] )->find();
-        $data = array(
+        $positionData = $Position->where( 'status=0 AND id='.$_POST['positionId'] )->find();
+        
+        $InstanceData = array(
             'claim_id'=>$_SESSION["user"]['id'],
-            'publish_id'=>$pasitionData['publish_id'],
-            "position_id"=>$pasitionData['id'],
+            'publish_id'=>$positionData['publish_id'],
+            "position_id"=>$positionData['id'],
             "status"=>0,
-            "turnover"=>$pasitionData['reward']
+            "turnover"=>$positionData['reward']
         );
         foreach($_POST["serve_dates"] as $k=>$v){
-            $data['serve_date'] = $v;
-           $Instance->add($data);
+            //每认领一天，生成一个服务实例
+            $InstanceData['serve_date'] = $v;
+            $insertId = $Instance->add($InstanceData);
+            
+            //每一个服务实例，双方分别记录订单
+            $claimBill = array(
+                'user_id'=>$_SESSION["user"]['id'],
+                'type'=>0,
+                "service_type"=>0,
+                "service_id"=>$insertId,
+                "event"=>"认领高峰期兼职",
+                "turnover"=>$positionData['reward'],
+                "balance"=>$_SESSION['user']['balance']
+            );
+            $UserBill->add($claimBill);
+            
+            $publishBill = array(
+                'user_id'=>$positionData['publish_id'],
+                'type'=>0,
+                "service_type"=>0,
+                "service_id"=>$insertId,
+                "event"=>"高峰期兼职被认领",
+                "turnover"=>-$positionData['reward'],
+                "balance"=> 0
+            );
+            $UserBill->add($publishBill);
         }
-        echo $this->response(array("status"=>"200"),'json');
+        
+        echo $this->response(array("code"=>"200"),'json');
+    }
+
+    public function instance_delete(){
+        $Instance = M("Add_gfqjz_instance");
+        
+        $Instance ->where('id='.$_GET['id'])->delete();
+        echo $this->response(array("code"=>"200"),'json');
     }
 }

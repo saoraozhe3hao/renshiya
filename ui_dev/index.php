@@ -54,15 +54,27 @@
         <input class="btn btn-default" type="button" value="注册" ng-click="register()">
         <a href="" ng-click="showPop('login')">登录</a>
     </div>
-
+    <div id="userInfo" ng-show="popType == 'user_info'">
+            <div><a href="" ng-click="showPop('')">关闭</a></div>
+            <!--用户信息-->
+            <div>
+                {{checkUser.username}}
+            </div>
+            <!-- 评论 -->
+            <div ng-repeat="comment in checkComments">
+                {{comment.score}}  {{comment.content}} {{comment.time}}
+            </div>
+    </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/angular.min.js"></script>
 <script src="//cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-<script src="js/main.js"></script>
 <script>
+    <?php  SESSION_START(); ?>
+    window.user = '<?php  if( isset( $_SESSION["user"] ) ){ echo json_encode( $_SESSION["user"] ) ; } ?>';
 
 </script>
+<script src="js/main.js"></script>
 </body>
 </html>

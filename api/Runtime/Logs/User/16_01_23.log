@@ -1,0 +1,344 @@
+[ 2016-01-23T09:13:16+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000369s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000534s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000625s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0161s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-23T09:16:03+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000452s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000629s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000741s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0162s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-23T09:48:56+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000461s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000652s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000788s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0141s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2016-01-23T09:58:14+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000569s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000662s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000781s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0158s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2016-01-23T10:35:11+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000477s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000656s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000785s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0168s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-23T10:53:57+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000546s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001627s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001768s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0170s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2016-01-23T10:56:09+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000374s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000547s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000639s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0149s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2016-01-23T12:53:19+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000471s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000666s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000802s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0504s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-23T15:15:41+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000384s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000548s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000638s ]
+ERR: 无法加载控制器:Bill
+
+[ 2016-01-23T15:16:50+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000467s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000666s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000782s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0138s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T15:16:54+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000037s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000643s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000857s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001014s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0518s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T15:17:43+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000037s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000523s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000616s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000724s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0147s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T15:19:55+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000038s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002128s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000903s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001060s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0166s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T15:21:36+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000398s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000557s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000662s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0178s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0006s ]
+
+[ 2016-01-23T15:27:32+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000044s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001101s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001940s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002258s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0169s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T15:28:22+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000035s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000547s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000533s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000629s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0205s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0006s ]
+
+[ 2016-01-23T15:29:15+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000034s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000597s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000553s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000666s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0128s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0007s ]
+
+[ 2016-01-23T15:44:38+08:00 ] ::1 /index.php/User/Comment/comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000435s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000555s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000649s ]
+SQL: SHOW COLUMNS FROM `comment` [ RunTime:0.0118s ]
+ERR: 1054:Unknown column 'user_id' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `comment` WHERE ( user_id=7 ) 
+ERR: 1054:Unknown column 'user_id' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `comment` WHERE ( user_id=7 ) 
+
+[ 2016-01-23T15:45:08+08:00 ] ::1 /index.php/User/Comment/comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000472s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000577s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000686s ]
+SQL: SHOW COLUMNS FROM `comment` [ RunTime:0.0121s ]
+SQL: SELECT * FROM `comment` WHERE ( comment_to=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T15:54:42+08:00 ] ::1 /index.php/User/Auth/logout
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000467s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000651s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000765s ]
+
+[ 2016-01-23T16:52:21+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000460s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000639s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000752s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0179s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-23T16:52:56+08:00 ] ::1 /index.php/User/Account/user
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000461s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000647s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000759s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0158s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T16:54:41+08:00 ] ::1 /index.php/User/Account/user
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000544s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000876s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001033s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0337s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0146s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T16:55:03+08:00 ] ::1 /index.php/User/Account/user
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000461s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000878s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001018s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0172s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0089s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T16:55:50+08:00 ] ::1 /index.php/User/Account/user
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000034s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001070s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000562s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000661s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0168s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0086s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 ) LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2016-01-23T16:57:28+08:00 ] ::1 /index.php/User/Account/user
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000462s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000734s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000865s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0176s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0085s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2016-01-23T16:57:31+08:00 ] ::1 /index.php/User/Comment/comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000379s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000549s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000646s ]
+SQL: SHOW COLUMNS FROM `comment` [ RunTime:0.0118s ]
+SQL: SELECT * FROM `comment` WHERE ( comment_to=7 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T16:57:32+08:00 ] ::1 /index.php/User/Bill/bill
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000651s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000771s ]
+SQL: SHOW COLUMNS FROM `user_bill` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `user_bill` WHERE ( user_id=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T16:57:43+08:00 ] ::1 /index.php/User/Comment/comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000398s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000524s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000618s ]
+SQL: SHOW COLUMNS FROM `comment` [ RunTime:0.0306s ]
+SQL: SELECT * FROM `comment` WHERE ( comment_to=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T17:27:48+08:00 ] ::1 /index.php/User/Account/user?id=7
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000728s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000739s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000865s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0155s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0084s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 ) LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2016-01-23T17:27:48+08:00 ] ::1 /index.php/User/Comment/comment?user_id=7
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000032s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000658s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000735s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000857s ]
+SQL: SHOW COLUMNS FROM `comment` [ RunTime:0.0102s ]
+SQL: SELECT * FROM `comment` WHERE ( comment_to=7 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T17:28:33+08:00 ] ::1 /index.php/User/Account/user?id=7
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000495s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000564s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000682s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0270s ]
+SQL: SHOW COLUMNS FROM `member` [ RunTime:0.0166s ]
+SQL: SELECT * FROM `user` WHERE ( id=7 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `member` WHERE ( user_id=7 ) LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2016-01-23T17:28:33+08:00 ] ::1 /index.php/User/Comment/comment?user_id=7
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000462s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000682s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000803s ]
+SQL: SHOW COLUMNS FROM `comment` [ RunTime:0.0107s ]
+SQL: SELECT * FROM `comment` WHERE ( comment_to=7 )  [ RunTime:0.0003s ]
+

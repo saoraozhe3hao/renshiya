@@ -13,6 +13,26 @@ var app = angular.module("renshiya", ['ui.router']).
                     templateUrl: 'views/publish.html',
                     controller: publishCtrl
                 })
+                .state('mine', {
+                    url: '/mine',
+                    templateUrl: 'views/mine.html',
+                    controller: mineCtrl
+                })
+                .state('bill', {
+                    url: '/bill',
+                    templateUrl: 'views/mine/bill.html',
+                    controller: billCtrl
+                })
+                .state('comment', {
+                    url: '/comment',
+                    templateUrl: 'views/mine/comment.html',
+                    controller: commentCtrl
+                })
+                .state('account', {
+                    url: '/account',
+                    templateUrl: 'views/mine/account.html',
+                    controller: accountCtrl
+                })
                 .state('gfqjz', {
                     url: '/gfqjz',
                     templateUrl: 'views/addition/gfqjz.html',
@@ -32,7 +52,15 @@ angular.bootstrap($("html")[0], ['renshiya']);
 
 //首屏控制器
 function topCtrl($rootScope,$scope, $state,$http) {
-    $rootScope.$state = $state;
+
+    function init(){
+        $rootScope.$state = $state;
+        if(window.user){
+            $rootScope.user = JSON.parse(window.user);
+        }
+    }
+
+    //弹出框区
     $rootScope.showPop = function(type){
         $rootScope.popType = type;
     }
@@ -58,6 +86,27 @@ function topCtrl($rootScope,$scope, $state,$http) {
                 console.log(status);
             });
     }
+    $rootScope.userInfo = function(id){
+        $rootScope.showPop("user_info");
+        $http.get('/index.php/User/Account/user?id='+id).
+            success(function (data, status, headers, config) {
+                $rootScope.checkUser = data.user ? data.user : {};
+                $rootScope.checkMember = data.member ? data.member : {};
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+
+        $http.get('/index.php/User/Comment/comment?user_id='+id).
+            success(function (data, status, headers, config) {
+                $rootScope.checkComments = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
 }
 function findCtrl($scope, $timeout, $interval) {
 
@@ -65,22 +114,104 @@ function findCtrl($scope, $timeout, $interval) {
 function publishCtrl($scope, $timeout, $interval) {
 
 }
+function mineCtrl($scope, $http,$rootScope) {
+
+    function init(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+    }
+    $scope.logout = function(id){
+        $http.get('/index.php/User/Auth/logout').
+            success(function (data, status, headers, config) {
+                window.user = "";
+                $rootScope.user = null;
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
+}
+
+//我的 订单
+function billCtrl($scope, $http) {
+    //公用区
+    function init(){
+        $scope.curView = "list";
+
+        $http.get('/index.php/User/Bill/bill').
+            success(function (data, status, headers, config) {
+                $scope.bills = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
+}
+
+//我的 评论
+function commentCtrl($scope, $http) {
+    //公用区
+    function init(){
+        $scope.curView = "list";
+
+        $http.get('/index.php/User/Comment/comment').
+            success(function (data, status, headers, config) {
+                $scope.comments = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
+}
+
+//我的 账号
+function accountCtrl($scope, $http) {
+    //公用区
+    function init(){
+        $scope.curView = "detail";
+
+        $http.get('/index.php/User/Account/user').
+            success(function (data, status, headers, config) {
+                $scope.user = data.user ? data.user : {};
+                $scope.member = data.member ? data.member : {};
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
+}
 
 //外快 高峰期兼职
 function gfqjzCtrl($scope,$rootScope, $http,timeService) {
-    $scope.curView = "list";
 
-    $http.get('/index.php/Addition/Gfqjz/position').
-        success(function (data, status, headers, config) {
-            $scope.positions = data ? data : [];
-        }).
-        error(function (data, status, headers, config) {
-            console.log(status);
-        });
+    //公用区
+    function init(){
+        $scope.curView = "list";
+
+        $http.get('/index.php/Addition/Gfqjz/position').
+            success(function (data, status, headers, config) {
+                $scope.positions = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
 
     $scope.changeView = function(view){
         $scope.curView = view;
     }
+
+    //list 区
     $scope.goDetail = function(id){
         $scope.changeView("detail");
          $http.get('/index.php/Addition/Gfqjz/position?id='+id).
@@ -117,6 +248,12 @@ function gfqjzCtrl($scope,$rootScope, $http,timeService) {
 
      }
 
+    $scope.goAdd = function(){
+        $scope.editPosition = {};
+        $scope.changeView("edit");
+    }
+
+    //detail 区
     $scope.select = function(index){
         if($scope.cards[index].selected){
             $scope.cards[index].selected = false;
@@ -152,22 +289,97 @@ function gfqjzCtrl($scope,$rootScope, $http,timeService) {
         $scope.changeView("claimInfo");
         $scope.curCardIndex = cardIndex;
     }
+
+    $scope.goEdit = function(){
+        $scope.editPosition = $scope.curPosition;
+        $scope.changeView("edit");
+    }
+
+    $scope.remove = function(id){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.delete('/index.php/Addition/Gfqjz/position?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    // edit 区
+    $scope.add = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.post('/index.php/Addition/Gfqjz/position',$scope.editPosition).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.put('/index.php/Addition/Gfqjz/position?id='+$scope.editPosition.id,$scope.editPosition).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    //claim info 区
+    $scope.cancel = function(id){
+        $http.delete('/index.php/Addition/Gfqjz/instance?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    $scope.goDetail($scope.curPosition.id);
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
 }
+
 //服务 上班顺风车
 function sbsfcCtrl($scope,$rootScope, $http,timeService) {
-    $scope.curView = "list";
 
-    $http.get('/index.php/Service/Sbsfc/route').
-        success(function (data, status, headers, config) {
-            $scope.routes = data ? data : [];
-        }).
-        error(function (data, status, headers, config) {
-            console.log(status);
-        });
+    //公共区
+    function init(){
+        $scope.curView = "list";
+        $http.get('/index.php/Service/Sbsfc/route').
+            success(function (data, status, headers, config) {
+                $scope.routes = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
 
     $scope.changeView = function(view){
         $scope.curView = view;
     }
+
+    //list 区
     $scope.goDetail = function(id){
         $scope.changeView("detail");
         $http.get('/index.php/Service/Sbsfc/route?id='+id).
@@ -204,9 +416,16 @@ function sbsfcCtrl($scope,$rootScope, $http,timeService) {
 
     }
 
+    $scope.goAdd = function(){
+        $scope.editRoute = {};
+        $scope.changeView("edit");
+    }
+
+    //detail 区
     $scope.selectPoint = function(point){
         $scope.selectedPoint = point;
     }
+
     $scope.select = function(index){
         if($scope.cards[index].selected){
             $scope.cards[index].selected = false;
@@ -243,9 +462,63 @@ function sbsfcCtrl($scope,$rootScope, $http,timeService) {
         $scope.curCardIndex = cardIndex;
     }
 
+    $scope.goEdit = function(){
+        $scope.editRoute = $scope.curRoute;
+        $scope.changeView("edit");
+    }
+
+    $scope.remove = function(id){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.delete('/index.php/Service/Sbsfc/route?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    // edit 区
+    $scope.add = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.post('/index.php/Service/Sbsfc/route',$scope.editRoute).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.put('/index.php/Service/Sbsfc/route?id='+$scope.editRoute.id,$scope.editRoute).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+
+    init();
 }
-
-
 
 
 //服务

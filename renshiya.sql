@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2016 年 01 月 20 日 00:05
+-- 生成日期: 2016 年 01 月 23 日 09:28
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -23,6 +23,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `add_gfqjz_instance`
+--
+
+CREATE TABLE IF NOT EXISTS `add_gfqjz_instance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `serve_date` date NOT NULL COMMENT '兼职日期',
+  `claim_id` int(11) NOT NULL COMMENT '认领人ID',
+  `publish_id` int(11) NOT NULL COMMENT '发布人ID',
+  `status` int(11) NOT NULL COMMENT '服务状态，0：已认领；1：已完成；2：已取消；3：发布人撤销；4：认领人撤销',
+  `position_id` int(11) NOT NULL COMMENT '岗位ID ',
+  `turnover` int(11) NOT NULL COMMENT '成交价格',
+  PRIMARY KEY (`id`),
+  KEY `claim_id` (`claim_id`),
+  KEY `publish_id` (`publish_id`),
+  KEY `position_id` (`position_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务_高峰期兼职 表' AUTO_INCREMENT=7 ;
+
+--
+-- 转存表中的数据 `add_gfqjz_instance`
+--
+
+INSERT INTO `add_gfqjz_instance` (`id`, `serve_date`, `claim_id`, `publish_id`, `status`, `position_id`, `turnover`) VALUES
+(1, '2016-01-24', 7, 1, 0, 3, 0),
+(2, '2016-01-29', 7, 1, 0, 3, 0),
+(4, '2016-01-24', 7, 7, 0, 2, 50),
+(5, '2016-01-24', 7, 7, 0, 2, 50),
+(6, '2016-01-28', 7, 7, 0, 2, 50);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `add_gfqjz_position`
+--
+
+CREATE TABLE IF NOT EXISTS `add_gfqjz_position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address` varchar(100) NOT NULL COMMENT '工作地点',
+  `description` varchar(512) NOT NULL COMMENT '岗位描述',
+  `publish_id` int(11) NOT NULL COMMENT '发布人',
+  `reward` int(11) NOT NULL COMMENT '报酬',
+  `number` int(11) NOT NULL COMMENT '需要人数',
+  `status` int(11) NOT NULL COMMENT '状态，0：正常；1：已删除',
+  `spot` varchar(50) NOT NULL COMMENT '时段',
+  `term` date NOT NULL COMMENT '截止有效期',
+  `day_flag` int(11) NOT NULL COMMENT '有效日',
+  PRIMARY KEY (`id`),
+  KEY `publish_id` (`publish_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务_高峰期兼职_岗位' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `add_gfqjz_position`
+--
+
+INSERT INTO `add_gfqjz_position` (`id`, `address`, `description`, `publish_id`, `reward`, `number`, `status`, `spot`, `term`, `day_flag`) VALUES
+(2, '锦业公寓西门超市', '搬货', 7, 50, 4, 0, '11:00-13:00,16:00-20:00', '2016-01-31', 1010101),
+(3, '望京花园', '端菜', 1, 20, 2, 1, '11:00-14:00', '2016-01-30', 1110001),
+(4, '北门', 'ddd', 7, 20, 7, 0, '7:00-9:00', '2016-02-15', 1101100);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `comment`
 --
 
@@ -31,14 +92,21 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `service_type` int(11) NOT NULL COMMENT '服务类型编号',
   `service_id` int(11) NOT NULL COMMENT '服务ID',
   `comment_by` int(11) NOT NULL COMMENT '评论人',
-  `commont_to` int(11) NOT NULL COMMENT '被评论人',
+  `comment_to` int(11) NOT NULL COMMENT '被评论人',
   `score` int(11) NOT NULL COMMENT '评分',
   `content` varchar(1024) NOT NULL COMMENT '评论内容',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
   PRIMARY KEY (`id`),
-  KEY `commont_to` (`commont_to`),
-  KEY `comment_by` (`comment_by`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评价表' AUTO_INCREMENT=1 ;
+  KEY `comment_by` (`comment_by`),
+  KEY `comment_to` (`comment_to`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='评价表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `comment`
+--
+
+INSERT INTO `comment` (`id`, `service_type`, `service_id`, `comment_by`, `comment_to`, `score`, `content`, `time`) VALUES
+(1, 0, 4, 7, 7, 90, '好得很', '2016-01-23 07:43:50');
 
 -- --------------------------------------------------------
 
@@ -52,7 +120,15 @@ CREATE TABLE IF NOT EXISTS `county` (
   `city` varchar(30) NOT NULL COMMENT '所属城市',
   `name` varchar(60) NOT NULL COMMENT '区县名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='区县表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='区县表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `county`
+--
+
+INSERT INTO `county` (`id`, `province`, `city`, `name`) VALUES
+(1, '陕西省', '西安市', '雁塔区'),
+(2, ' ', '北京市', '朝阳区');
 
 -- --------------------------------------------------------
 
@@ -83,7 +159,14 @@ CREATE TABLE IF NOT EXISTS `manager` (
   UNIQUE KEY `id_number` (`card_num`),
   UNIQUE KEY `username` (`username`),
   KEY `village_id` (`village_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小区经理表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='小区经理表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `manager`
+--
+
+INSERT INTO `manager` (`id`, `village_id`, `surname`, `card_num`, `building_num`, `door_num`, `username`, `password`, `status`, `balance`, `join_time`, `avatar`, `sex`, `birthdate`, `name`, `phone`, `weixin`, `gongzhonghao`) VALUES
+(1, 1, '熊', '350881199010230372', 'A栋', '1008', 'xiongzhanying', '38906cb4cbe2a72f8592cd501fe0a1e4', 1, 0, '2016-01-19 16:00:00', '', 1, '1987-09-02', '站营', '15202926290', '15202926290', '锦业名铺');
 
 -- --------------------------------------------------------
 
@@ -108,51 +191,37 @@ CREATE TABLE IF NOT EXISTS `manager_bill` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `ser_gfqjz_instance`
+-- 表的结构 `member`
 --
 
-CREATE TABLE IF NOT EXISTS `ser_gfqjz_instance` (
+CREATE TABLE IF NOT EXISTS `member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL COMMENT '兼职日期',
-  `claim_id` int(11) NOT NULL COMMENT '认领人ID',
-  `publish_id` int(11) NOT NULL COMMENT '发布人ID',
-  `status` int(11) NOT NULL COMMENT '服务状态，0：未发布；1：未认领；2：已认领；3：已完成；4：发布人撤销；5：认领人撤销',
-  `position_id` int(11) NOT NULL COMMENT '岗位ID ',
-  `turnover` int(11) NOT NULL COMMENT '成交价格',
+  `user_id` int(11) NOT NULL,
+  `door_num` varchar(20) NOT NULL COMMENT '门牌号',
+  `description` varchar(512) NOT NULL COMMENT '个人描述',
+  `house_auth` int(11) NOT NULL DEFAULT '0' COMMENT '0：未认证；1：家庭自有住房；2：租住；3：住户亲友',
+  `cert_auth` varchar(512) NOT NULL COMMENT '证件认证，以分号隔开',
+  `prof_auth` varchar(128) NOT NULL COMMENT 'profession职业认证，以逗号分隔',
+  `prop_auth` varchar(512) NOT NULL COMMENT 'property产权认证，以分号隔开',
+  `balance` float NOT NULL COMMENT '账号余额',
+  `building_num` varchar(20) NOT NULL COMMENT '楼号',
+  `birthdate` date NOT NULL COMMENT '出生日期',
   PRIMARY KEY (`id`),
-  KEY `claim_id` (`claim_id`),
-  KEY `publish_id` (`publish_id`),
-  KEY `position_id` (`position_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务_高峰期兼职 表' AUTO_INCREMENT=1 ;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='成员表，从用户表分离出来' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `ser_gfqjz_position`
+-- 表的结构 `ser_sbsfc_instance`
 --
 
-CREATE TABLE IF NOT EXISTS `ser_gfqjz_position` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `address` varchar(100) NOT NULL COMMENT '工作地点',
-  `discription` varchar(512) NOT NULL COMMENT '岗位描述',
-  `publish_id` int(11) NOT NULL COMMENT '发布人',
-  `reward` int(11) NOT NULL COMMENT '报酬',
-  PRIMARY KEY (`id`),
-  KEY `publish_id` (`publish_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务_高峰期兼职_岗位' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ser_sbffc_instance`
---
-
-CREATE TABLE IF NOT EXISTS `ser_sbffc_instance` (
+CREATE TABLE IF NOT EXISTS `ser_sbsfc_instance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `publish_id` int(11) NOT NULL COMMENT '发布人ID',
   `claim_id` int(11) NOT NULL COMMENT '认领人ID',
-  `status` int(11) NOT NULL COMMENT '服务状态，0：未发布；1：未认领；2：已认领；3：已完成；4：发布人撤销；5：认领人撤销',
-  `date` date NOT NULL COMMENT '日期',
+  `status` int(11) NOT NULL COMMENT '服务状态，0：已认领；1：已完成；2：已取消；3：发布人撤销；4：认领人撤销',
+  `serve_date` date NOT NULL COMMENT '日期',
   `route_id` int(11) NOT NULL COMMENT '线路ID',
   `turnover` int(11) NOT NULL COMMENT '成交价格',
   `destination` varchar(100) NOT NULL COMMENT '目的地',
@@ -160,32 +229,53 @@ CREATE TABLE IF NOT EXISTS `ser_sbffc_instance` (
   KEY `publish_id` (`publish_id`),
   KEY `claim_id` (`claim_id`),
   KEY `route_id` (`route_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务_上班顺风车 表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务_上班顺风车 表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `ser_sbsfc_instance`
+--
+
+INSERT INTO `ser_sbsfc_instance` (`id`, `publish_id`, `claim_id`, `status`, `serve_date`, `route_id`, `turnover`, `destination`) VALUES
+(1, 1, 7, 0, '2016-01-23', 1, 40, '高新一中');
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `ser_sbffc_route`
+-- 表的结构 `ser_sbsfc_route`
 --
 
-CREATE TABLE IF NOT EXISTS `ser_sbffc_route` (
+CREATE TABLE IF NOT EXISTS `ser_sbsfc_route` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dep_time` time NOT NULL COMMENT 'departure出发时间',
+  `dep_time` varchar(5) NOT NULL COMMENT 'departure出发时间',
   `dep_point` varchar(100) NOT NULL COMMENT '出发地点',
   `car_model` varchar(80) NOT NULL COMMENT '车款',
   `car_plate` varchar(80) NOT NULL COMMENT '车牌号',
-  `end_point` varchar(100) NOT NULL COMMENT '终点',
-  `pass_point_1` varchar(100) NOT NULL COMMENT '必经点1',
-  `pass_point_2` varchar(100) NOT NULL COMMENT '必经点2',
-  `pass_point_3` varchar(100) CHARACTER SET utf8mb4 NOT NULL COMMENT '必经点3',
-  `pass_point_4` varchar(100) NOT NULL COMMENT '必经点4',
+  `point_end` varchar(100) NOT NULL COMMENT '终点',
+  `point_1` varchar(100) NOT NULL COMMENT '必经点1',
+  `point_2` varchar(100) NOT NULL COMMENT '必经点2',
+  `point_3` varchar(100) CHARACTER SET utf8mb4 NOT NULL COMMENT '必经点3',
+  `point_4` varchar(100) NOT NULL COMMENT '必经点4',
   `price_1` int(11) NOT NULL COMMENT '必经点1 的价格',
   `price_2` int(11) NOT NULL COMMENT '必经点2 的价格',
   `price_3` int(11) NOT NULL COMMENT '必经点3 的价格',
   `price_4` int(11) NOT NULL COMMENT '必经点4  的价格',
   `price_end` int(11) NOT NULL COMMENT '终点的价格',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务_高峰期_线路' AUTO_INCREMENT=1 ;
+  `number` int(11) NOT NULL COMMENT '可搭载人数',
+  `status` int(11) NOT NULL COMMENT '状态，0：正常；1：已删除',
+  `day_flag` int(11) NOT NULL COMMENT '有效日',
+  `publish_id` int(11) NOT NULL COMMENT '发布人ID',
+  `term` date NOT NULL COMMENT '截止有效日',
+  PRIMARY KEY (`id`),
+  KEY `publish_id` (`publish_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务_高峰期_线路' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `ser_sbsfc_route`
+--
+
+INSERT INTO `ser_sbsfc_route` (`id`, `dep_time`, `dep_point`, `car_model`, `car_plate`, `point_end`, `point_1`, `point_2`, `point_3`, `point_4`, `price_1`, `price_2`, `price_3`, `price_4`, `price_end`, `number`, `status`, `day_flag`, `publish_id`, `term`) VALUES
+(1, '07:00', '北门', '奥迪', '陕A 1233', '零壹广场', '绿地世纪城', '锦业路', '旺座', '高新一中', 10, 20, 30, 40, 50, 3, 0, 1001010, 1, '2016-01-29'),
+(2, '7:00', '北门', '奥迪', '陕B', '5', '1', '2', '3', '4', 1, 2, 3, 4, 5, 3, 0, 1100011, 7, '2016-12-03');
 
 -- --------------------------------------------------------
 
@@ -198,27 +288,29 @@ CREATE TABLE IF NOT EXISTS `user` (
   `village_id` int(11) NOT NULL COMMENT '小区ID',
   `username` varchar(64) NOT NULL COMMENT '用户名',
   `password` varchar(32) NOT NULL COMMENT '密码',
-  `birthdate` date NOT NULL COMMENT '出生日期',
-  `phone` varchar(15) NOT NULL COMMENT '手机号码',
-  `building_num` varchar(20) NOT NULL COMMENT '楼号',
-  `door_num` varchar(20) NOT NULL COMMENT '门牌号',
-  `balance` float NOT NULL COMMENT '账号余额',
   `comment_num` int(11) NOT NULL DEFAULT '0' COMMENT '评论总数',
   `score_sum` float NOT NULL DEFAULT '0' COMMENT '评分总分',
   `complete_num` int(11) NOT NULL COMMENT '完成单数',
-  `house_auth` int(11) NOT NULL DEFAULT '0' COMMENT '0：家庭自有住房；1：租住；2：住户亲友',
-  `cert_auth` varchar(512) NOT NULL COMMENT '证件认证，以分号隔开',
-  `prof_auth` varchar(128) NOT NULL COMMENT 'profession职业认证，以逗号分隔',
-  `prop_auth` varchar(512) NOT NULL COMMENT 'property产权认证，以分号隔开',
   `status` int(11) NOT NULL COMMENT '状态，0：未注册完成；1：正常；2：封号',
   `surname` varchar(20) NOT NULL COMMENT '姓氏',
   `sex` int(11) NOT NULL COMMENT '性别  0：未确定；1：男；2：女',
-  `description` varchar(512) NOT NULL COMMENT '个人描述',
   `revoke_num` int(11) NOT NULL COMMENT '撤销数',
+  `phone` varchar(15) NOT NULL COMMENT '手机号码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `village_id` (`village_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=11 ;
+
+--
+-- 转存表中的数据 `user`
+--
+
+INSERT INTO `user` (`id`, `village_id`, `username`, `password`, `comment_num`, `score_sum`, `complete_num`, `status`, `surname`, `sex`, `revoke_num`, `phone`) VALUES
+(1, 1, 'hongzhenquan', '52b20a2d7bd1705cbc6165a0266bf3cc', 0, 0, 0, 1, '洪', 1, 0, ''),
+(7, 1, 'hong1', '38906cb4cbe2a72f8592cd501fe0a1e4', 0, 0, 0, 0, '', 0, 0, ''),
+(8, 1, 'gggg', 'c1ebb4933e06ce5617483f665e26627c', 0, 0, 0, 0, '', 0, 0, ''),
+(9, 1, 'fgdg', 'a8d0555c213aa52d3c968d60cd6731dd', 0, 0, 0, 0, '', 0, 0, ''),
+(10, 1, 'dddd', '11ddbaf3386aea1f2974eee984542152', 0, 0, 0, 0, '', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -229,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS `user_bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `type` int(11) NOT NULL COMMENT '账单类型，0：支出；1：收入；2：提现；3：充值',
+  `type` int(11) NOT NULL COMMENT '账单类型，0：预订；1：支出；2：收入；3：提现；4：充值',
   `service_type` int(11) NOT NULL COMMENT '服务类型编号',
   `service_id` int(11) NOT NULL COMMENT '服务ID',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
@@ -238,7 +330,17 @@ CREATE TABLE IF NOT EXISTS `user_bill` (
   `turnover` float NOT NULL COMMENT '成交金额',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户账单表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户账单表' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `user_bill`
+--
+
+INSERT INTO `user_bill` (`id`, `user_id`, `type`, `service_type`, `service_id`, `time`, `event`, `balance`, `turnover`) VALUES
+(1, 7, 0, 0, 5, '2016-01-23 07:19:23', '高峰期兼职', 0, 50),
+(2, 7, 0, 0, 5, '2016-01-23 07:19:32', '高峰期兼职', 0, -50),
+(3, 7, 0, 0, 6, '2016-01-23 07:19:40', '高峰期兼职', 0, 50),
+(4, 7, 0, 0, 6, '2016-01-23 07:19:49', '高峰期兼职', 0, -50);
 
 -- --------------------------------------------------------
 
@@ -255,18 +357,40 @@ CREATE TABLE IF NOT EXISTS `village` (
   `latitude` float NOT NULL COMMENT '小区所在维度',
   PRIMARY KEY (`id`),
   KEY `county_id` (`county_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小区表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='小区表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `village`
+--
+
+INSERT INTO `village` (`id`, `name`, `county_id`, `address`, `longitude`, `latitude`) VALUES
+(1, '未知', 1, '未知', 0, 0),
+(2, '望京花园', 2, '利泽中街', 116.477, 40.013);
 
 --
 -- 限制导出的表
 --
 
 --
+-- 限制表 `add_gfqjz_instance`
+--
+ALTER TABLE `add_gfqjz_instance`
+  ADD CONSTRAINT `add_gfqjz_instance_ibfk_1` FOREIGN KEY (`claim_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `add_gfqjz_instance_ibfk_2` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `add_gfqjz_instance_ibfk_3` FOREIGN KEY (`position_id`) REFERENCES `add_gfqjz_position` (`id`);
+
+--
+-- 限制表 `add_gfqjz_position`
+--
+ALTER TABLE `add_gfqjz_position`
+  ADD CONSTRAINT `add_gfqjz_position_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
+
+--
 -- 限制表 `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`commont_to`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_to`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `manager`
@@ -281,26 +405,24 @@ ALTER TABLE `manager_bill`
   ADD CONSTRAINT `manager_bill_ibfk_1` FOREIGN KEY (`manager_id`) REFERENCES `manager` (`id`);
 
 --
--- 限制表 `ser_gfqjz_instance`
+-- 限制表 `member`
 --
-ALTER TABLE `ser_gfqjz_instance`
-  ADD CONSTRAINT `ser_gfqjz_instance_ibfk_1` FOREIGN KEY (`claim_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `ser_gfqjz_instance_ibfk_2` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `ser_gfqjz_instance_ibfk_3` FOREIGN KEY (`position_id`) REFERENCES `ser_gfqjz_position` (`id`);
+ALTER TABLE `member`
+  ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- 限制表 `ser_gfqjz_position`
+-- 限制表 `ser_sbsfc_instance`
 --
-ALTER TABLE `ser_gfqjz_position`
-  ADD CONSTRAINT `ser_gfqjz_position_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
+ALTER TABLE `ser_sbsfc_instance`
+  ADD CONSTRAINT `ser_sbsfc_instance_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ser_sbsfc_instance_ibfk_2` FOREIGN KEY (`claim_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ser_sbsfc_instance_ibfk_3` FOREIGN KEY (`route_id`) REFERENCES `ser_sbsfc_route` (`id`);
 
 --
--- 限制表 `ser_sbffc_instance`
+-- 限制表 `ser_sbsfc_route`
 --
-ALTER TABLE `ser_sbffc_instance`
-  ADD CONSTRAINT `ser_sbffc_instance_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `ser_sbffc_instance_ibfk_2` FOREIGN KEY (`claim_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `ser_sbffc_instance_ibfk_3` FOREIGN KEY (`route_id`) REFERENCES `ser_sbffc_route` (`id`);
+ALTER TABLE `ser_sbsfc_route`
+  ADD CONSTRAINT `ser_sbsfc_route_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `user`

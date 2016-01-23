@@ -1,0 +1,7 @@
+<!-- 列表 -->
+<div><a href="#/mine">返回</a></div>
+<div ng-show="curView == 'list'">
+    <div ng-repeat="bill in bills">
+        {{bill.event}} {{bill.turnover}}
+    </div>
+</div>

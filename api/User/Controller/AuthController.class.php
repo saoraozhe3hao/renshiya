@@ -19,8 +19,8 @@ class AuthController  extends RestController {
             "village_id"=>1
         );
         //增
-       $User->add($data);
-       $userData = $User->where( 'username="'.$_POST["username"].'"')->find();
+       $insertId = $User->add($data);
+       $userData = $User->where( 'id='.$insertId)->find();
        $_SESSION["user"] = $userData;
        echo $this->response($userData,'json');
     }
@@ -37,5 +37,10 @@ class AuthController  extends RestController {
         else{
             echo $this->response(array("code"=>400),'json');
         }
+    }
+    
+    public function logout_get(){
+        $_SESSION["user"] = null;
+        echo $this->response(array("code"=>200),'json');
     }
 }

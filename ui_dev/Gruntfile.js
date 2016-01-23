@@ -60,7 +60,7 @@ module.exports = function (grunt) {
                 files: [
                     //expand 为true，src匹配所有；否则只匹配一个。
                     {expand: true, src: 'fonts/*', dest: '../ui/'},
-                    {src: ['index.html'], dest: '../ui/'},
+                    {src: ['index.php'], dest: '../ui/'},
                     {expand: true, src: 'js/*', dest: '../ui/'},
                     {expand: true, src: 'views/**', dest: '../ui/'},
                     {expand: true, src: 'css/*', dest: '../ui/'},

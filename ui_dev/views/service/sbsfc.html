@@ -1,11 +1,16 @@
-<div ng-repeat="route in routes" ng-show="curView == 'list'">
-    <a href="" ng-click="goDetail(route.id)">{{route.dep_time}}从 {{route.dep_point}}出发，经过 {{route.point_1}}、
-        {{route.point_2}}、{{route.point_3}}、{{route.point_4}}，终点{{route.end_point}}</a>
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div ng-repeat="route in routes">
+        <a href="" ng-click="goDetail(route.id)">{{route.dep_time}}从 {{route.dep_point}}出发，经过 {{route.point_1}}、
+            {{route.point_2}}、{{route.point_3}}、{{route.point_4}}，终点{{route.end_point}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="添加路线" ng-click="goAdd()">
 </div>
+<!-- 详情 -->
 <div ng-show="curView == 'detail'">
     <div><a href="" ng-click="changeView('list')">返回</a></div>
     <div>{{curRoute.dep_time}} 从{{curRoute.dep_point}}出发，经过 {{curRoute.point_1}} {{curRoute.point_2}}、
-        {{curRoute.point_3}}、{{curRoute.point_4}}，终点{{curRoute.end_point}}
+        {{curRoute.point_3}}、{{curRoute.point_4}}，终点{{curRoute.point_end}}
     </div>
     <div class="select clearfix">
         <div class="item">
@@ -35,7 +40,7 @@
         <div class="item">
             <div class="card" ng-click="selectPoint('end')"
                  ng-class="{selected:selectedPoint == 'end'}">
-                {{curRoute.point_1}}
+                {{curRoute.point_end}}
             </div>
         </div>
     </div>
@@ -49,8 +54,65 @@
         </div>
     </div>
     <input class="btn btn-default" type="button" value="认领" ng-click="claim()">
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curRoute.id)">
 </div>
+<!-- 占座信息 -->
 <div ng-show="curView == 'claimInfo'">
     <div><a href="" ng-click="changeView('detail')">返回</a></div>
     <div ng-repeat="instance in cards[curCardIndex].instances">{{instance.claim_id}}</div>
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>出发时间：</label>
+        <input type="text" ng-model="editRoute.dep_time">
+    </div>
+    <div>
+        <label>出发地点：</label>
+        <input type="text" ng-model="editRoute.dep_point">
+    </div>
+    <div>
+        <label>车款：</label>
+        <input type="text" ng-model="editRoute.car_model">
+    </div>
+    <div>
+        <label>车牌：</label>
+        <input type="text" ng-model="editRoute.car_plate">
+    </div>
+    <div>
+        <label>可搭载日：</label>
+        <input type="text" ng-model="editRoute.day_flag">
+    </div>
+    <div>
+        <label>可搭载人数：</label>
+        <input type="text" ng-model="editRoute.number">
+    </div>
+    <div>
+        <label>有效期：</label>
+        <input type="text" ng-model="editRoute.term">
+    </div>
+    <div>
+        <label>经过点1：</label>
+        <input type="text" ng-model="editRoute.point_1"><input type="text" ng-model="editRoute.price_1">
+    </div>
+    <div>
+        <label>经过点2：</label>
+        <input type="text" ng-model="editRoute.point_2"><input type="text" ng-model="editRoute.price_2">
+    </div>
+    <div>
+        <label>经过点3：</label>
+        <input type="text" ng-model="editRoute.point_3"><input type="text" ng-model="editRoute.price_3">
+    </div>
+    <div>
+        <label>经过点4：</label>
+        <input type="text" ng-model="editRoute.point_4"><input type="text" ng-model="editRoute.price_4">
+    </div>
+    <div>
+        <label>终点：</label>
+        <input type="text" ng-model="editRoute.point_end"><input type="text" ng-model="editRoute.price_end">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="add()" ng-if="!curRoute.id">
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!curRoute.id">
 </div>

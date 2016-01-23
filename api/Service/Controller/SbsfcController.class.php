@@ -22,6 +22,40 @@ class SbsfcController  extends RestController {
         echo $this->response($data,'json');
     }
     
+    public function route_post(){
+        $Route = M("Ser_sbsfc_route");
+        $_POST = json_decode (file_get_contents('php://input'),true);
+    
+        $data = $_POST;
+        $data["publish_id"] = $_SESSION["user"]['id'];
+        $data["status"] = 0;
+
+        $Route->add($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
+    
+    public function route_put(){
+        $Route = M("Ser_sbsfc_route");
+        $_PUT = json_decode (file_get_contents('php://input'),true);
+    
+        $data = $_PUT;
+        
+        $Route ->where('id='.$_GET['id'])->save($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
+    
+    public function route_delete(){
+        $Position = M("Ser_sbsfc_ruote");
+        $_PUT = json_decode (file_get_contents('php://input'),true);
+        
+        $data = array(
+            "status"=>1
+        );
+        $Position ->where('id='.$_GET['id'])->save($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
+    
+    
     public function instance_post(){
         $Route = M("Ser_sbsfc_route");
         $Instance = M("Ser_sbsfc_instance");
