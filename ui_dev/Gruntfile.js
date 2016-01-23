@@ -62,14 +62,9 @@ module.exports = function (grunt) {
                     {expand: true, src: 'fonts/*', dest: '../ui/'},
                     {src: ['index.html'], dest: '../ui/'},
                     {expand: true, src: 'js/*', dest: '../ui/'},
-                    {expand: true, src: 'views/*', dest: '../ui/'},
+                    {expand: true, src: 'views/**', dest: '../ui/'},
                     {expand: true, src: 'css/*', dest: '../ui/'},
                     {expand: true, src: 'img/*', dest: '../ui/'}
-                ]
-            },
-            css:{
-                files:[
-                    {expand: true, src: 'css/*', dest: '../ui/'}
                 ]
             },
             ready: {
@@ -86,9 +81,9 @@ module.exports = function (grunt) {
         watch: {
             less: {
                 //监控对象，匹配less下的所有文件
-                files: 'less/**/*.less',
+                files: ['less/**/*.less'],
                 //监控对象发生变化，出发的任务
-                tasks: ['less:compileRenshiya','copy:css']
+                tasks: ['less:compileRenshiya']
             }
         }
     });

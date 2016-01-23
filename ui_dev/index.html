@@ -16,9 +16,45 @@
     <div ui-view></div>
 </div>
 <div id="navigate">
-    <div class="item" ng-click="http()">        寻找    </div>
-    <div class="item">        发布    </div>
-    <div class="item">        我的    </div>
+    <div class="item"><a href="#/find">寻找</a></div>
+    <div class="item"><a href="#/publish">发布</a></div>
+    <div class="item"><a href="#/mine">我的</a></div>
+</div>
+<div id="authentication">
+    <div id="login" ng-show="popType == 'login'">
+        <div class="form-group">
+            <label>用户名：</label>
+            <input type="text" class="form-control" ng-model="login_name">
+        </div>
+        <div class="form-group">
+            <label>密码：</label>
+            <input type="password" class="form-control" ng-model="login_pwd">
+        </div>
+        <input class="btn btn-default" type="button" value="登录" ng-click="login()">
+        <a href="" ng-click="showPop('register')">注册</a>
+    </div>
+    <div id="register" ng-show="popType == 'register'">
+        <div class="form-group">
+            <label>用户名：</label>
+            <input type="text" class="form-control" ng-model="register_name">
+        </div>
+        <div class="form-group">
+            <label>密码：</label>
+            <input type="password" class="form-control" ng-model="register_pwd">
+        </div>
+        <div class="form-group">
+            <label>手机号码：</label>
+            <input type="text" class="form-control" ng-model="register_phone">
+            <input class="btn btn-default" type="button" value="获取验证码">
+        </div>
+        <div class="form-group">
+            <label>验证码：</label>
+            <input type="password" class="form-control" ng-model="register_code">
+        </div>
+        <input class="btn btn-default" type="button" value="注册" ng-click="register()">
+        <a href="" ng-click="showPop('login')">登录</a>
+    </div>
+
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

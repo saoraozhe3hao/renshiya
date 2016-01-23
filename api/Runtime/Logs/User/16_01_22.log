@@ -1,0 +1,128 @@
+[ 2016-01-22T00:06:41+08:00 ] 127.0.0.1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000443s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000497s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000612s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.1821s ]
+ERR: 1054:Unknown column 'hong1' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `user` WHERE ( username=hong1 ) LIMIT 1  
+ERR: 1054:Unknown column 'hong1' in 'where clause'
+ [ SQL语句 ] : SELECT * FROM `user` WHERE ( username=hong1 ) LIMIT 1  
+
+[ 2016-01-22T00:07:55+08:00 ] 127.0.0.1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000387s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000493s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000586s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0159s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T00:12:57+08:00 ] 127.0.0.1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000437s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000494s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000609s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0162s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T00:13:10+08:00 ] 127.0.0.1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000438s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000481s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000603s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0136s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0006s ]
+
+[ 2016-01-22T01:03:35+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000435s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000575s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000668s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0152s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T01:03:44+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000382s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002121s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002434s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0161s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T01:04:38+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000478s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000697s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000809s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0151s ]
+NOTIC: [8] Undefined index: phone D:\project\renshiya\api\User\Controller\AuthController.class.php 第 18 行.
+ERR: 1048:Column 'phone' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`username`,`password`,`phone`,`village_id`) VALUES ('dddd','11ddbaf3386aea1f2974eee984542152',NULL,'1')
+ERR: 1048:Column 'phone' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`username`,`password`,`phone`,`village_id`) VALUES ('dddd','11ddbaf3386aea1f2974eee984542152',NULL,'1')
+
+[ 2016-01-22T01:06:21+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000441s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000492s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000608s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0158s ]
+SQL: INSERT INTO `user` (`username`,`password`,`phone`,`village_id`) VALUES ('dddd','11ddbaf3386aea1f2974eee984542152','15202926290','1') [ RunTime:0.0075s ]
+SQL: SELECT * FROM `user` WHERE ( username="dddd" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T19:56:48+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000459s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000599s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000721s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0148s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T19:59:54+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000415s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000526s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000654s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0179s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T21:57:10+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000423s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000498s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000610s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0174s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2016-01-22T22:29:47+08:00 ] ::1 /index.php/User/Auth/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000411s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000502s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000593s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0135s ]
+SQL: SELECT * FROM `user` WHERE ( username="hong1" ) LIMIT 1   [ RunTime:0.0005s ]
+

@@ -1,0 +1,11 @@
+[ 2016-01-23T08:34:51+08:00 ] ::1 /index.php/Service/Sbsfc/route
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000028s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000577s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000606s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000717s ]
+SQL: SHOW COLUMNS FROM `ser_sbsfc_route` [ RunTime:0.0187s ]
+SQL: SHOW COLUMNS FROM `ser_sbsfc_instance` [ RunTime:0.0099s ]
+SQL: SELECT * FROM `ser_sbsfc_route` WHERE ( status=0 )  [ RunTime:0.0003s ]
+

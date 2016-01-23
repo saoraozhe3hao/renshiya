@@ -1,4 +1,6 @@
-<?php
+<?php 
+    // 开启调试模式
+    define('APP_DEBUG', true);
    //thinkPHP demo入口文件
    //定义以下常量后，初次访问该入口，会在PHP根目录下自动生成Think应用目录api
    define('APP_PATH', './api/');

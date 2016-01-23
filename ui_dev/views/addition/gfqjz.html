@@ -1,0 +1,28 @@
+<div ng-show="curView == 'list'">
+    <div>岗位：</div>
+    <div ng-repeat="position in positions">
+        <a href="" ng-click="goDetail(position.id)">{{position.address}} {{position.discription}} {{position.number}}
+            {{position.reward}}元/天 {{position.spot}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="添加岗位" ng-click="claim()">
+</div>
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curPosition.address}} {{curPosition.discription}} {{curPosition.number}} {{curPosition.reward}}元/天
+        {{curPosition.spot}}
+    </div>
+    <div class="select">
+        <div class="item" ng-repeat="card in cards">
+            <div class="card" ng-click="select($index)"
+                 ng-class="{full:card.instances.length >= curPosition.number,enable:card.enable && card.instances.length < curPosition.number,selected:card.selected}">
+                {{card.date}} {{card.day}}
+            </div>
+            <div><a href="" ng-click="goClaimInfo($index)">查看认领情况</a></div>
+        </div>
+    </div>
+    <input class="btn btn-default" type="button" value="认领" ng-click="claim()">
+</div>
+<div ng-show="curView == 'claimInfo'">
+    <div><a href="" ng-click="changeView('detail')">返回</a></div>
+    <div ng-repeat="instance in cards[curCardIndex].instances">{{instance.claim_id}}</div>
+</div>

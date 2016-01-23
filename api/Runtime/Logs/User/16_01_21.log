@@ -1,0 +1,403 @@
+[ 2016-01-21T21:37:31+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000466s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000702s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000840s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0148s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+
+[ 2016-01-21T21:40:08+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000030s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000527s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001054s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001235s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0164s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+
+[ 2016-01-21T21:43:08+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000434s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000512s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000629s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0147s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+
+[ 2016-01-21T21:44:38+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000043s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000811s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000580s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000678s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0133s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+
+[ 2016-01-21T21:48:13+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000440s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000589s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000734s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0159s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+
+[ 2016-01-21T21:48:50+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000487s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001203s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001405s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0136s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+
+[ 2016-01-21T21:50:15+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000036s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000662s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001107s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001737s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0158s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+ERR: 1048:Column 'password' cannot be null
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES (NULL)
+
+[ 2016-01-21T21:52:57+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000465s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000875s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001151s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0135s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+
+[ 2016-01-21T21:56:08+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000462s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001691s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001910s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0139s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+
+[ 2016-01-21T22:00:00+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000394s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000636s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000763s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0537s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.005156s ]
+INFO: [ app_end ] --END-- [ RunTime:0.005260s ]
+
+[ 2016-01-21T22:00:51+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000427s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000687s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000810s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0145s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000613s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000701s ]
+
+[ 2016-01-21T22:01:16+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000365s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000533s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000625s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0136s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 14 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000901s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001052s ]
+
+[ 2016-01-21T22:01:31+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000423s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000638s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000750s ]
+ERR: 非法操作:register
+
+[ 2016-01-21T22:02:01+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000409s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000512s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000615s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0140s ]
+NOTIC: [8] Undefined index: username D:\project\renshiya\api\User\Controller\AuthController.class.php 第 15 行.
+NOTIC: [8] Undefined index: password D:\project\renshiya\api\User\Controller\AuthController.class.php 第 16 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000638s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000725s ]
+
+[ 2016-01-21T22:06:58+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000024s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000463s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000690s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000834s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0133s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000650s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000741s ]
+
+[ 2016-01-21T22:13:11+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000032s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000580s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000726s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000857s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0140s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000707s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000836s ]
+
+[ 2016-01-21T22:31:31+08:00 ] ::1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000479s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000822s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000949s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0147s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000700s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000824s ]
+
+[ 2016-01-21T22:32:04+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000035s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000498s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000510s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000630s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0177s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000779s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000899s ]
+
+[ 2016-01-21T22:32:22+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000426s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000486s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000597s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0149s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000648s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000748s ]
+
+[ 2016-01-21T22:36:03+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000473s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000585s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000698s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0141s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001006s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001173s ]
+
+[ 2016-01-21T22:36:16+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000346s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000414s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000515s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0149s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000826s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000921s ]
+
+[ 2016-01-21T22:39:15+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000032s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001216s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000791s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000919s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0141s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000736s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000855s ]
+
+[ 2016-01-21T22:39:52+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000036s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000768s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001108s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001324s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0170s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001285s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001478s ]
+
+[ 2016-01-21T22:40:31+08:00 ] ::1 /index.php/User/Auth/register?ed=dd
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000440s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000714s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000884s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0267s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000645s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000735s ]
+
+[ 2016-01-21T23:34:33+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000075s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000698s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000491s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000610s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0207s ]
+
+[ 2016-01-21T23:35:15+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000387s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000429s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000521s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0421s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`renshiya`.`user`, CONSTRAINT `user_ibfk_1` FOREIGN KEY (`village_id`) REFERENCES `village` (`id`))
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES ('wowo000')
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`renshiya`.`user`, CONSTRAINT `user_ibfk_1` FOREIGN KEY (`village_id`) REFERENCES `village` (`id`))
+ [ SQL语句 ] : INSERT INTO `user` (`password`) VALUES ('wowo000')
+
+[ 2016-01-21T23:38:57+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000513s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000924s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001019s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0143s ]
+SQL: INSERT INTO `user` (`password`,`village_id`) VALUES ('wowo000','1') [ RunTime:0.0053s ]
+
+[ 2016-01-21T23:43:32+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000535s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000807s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000923s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0157s ]
+SQL: INSERT INTO `user` (`password`,`village_id`) VALUES ('38906cb4cbe2a72f8592cd501fe0a1e4','1') [ RunTime:0.0055s ]
+
+[ 2016-01-21T23:45:33+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000746s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000890s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0149s ]
+ERR: 1062:Duplicate entry '' for key 'username'
+ [ SQL语句 ] : INSERT INTO `user` (`password`,`village_id`) VALUES ('38906cb4cbe2a72f8592cd501fe0a1e4','1')
+ERR: 1062:Duplicate entry '' for key 'username'
+ [ SQL语句 ] : INSERT INTO `user` (`password`,`village_id`) VALUES ('38906cb4cbe2a72f8592cd501fe0a1e4','1')
+
+[ 2016-01-21T23:46:40+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000069s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001686s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001544s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001796s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0136s ]
+SQL: INSERT INTO `user` (`password`,`village_id`) VALUES ('38906cb4cbe2a72f8592cd501fe0a1e4','1') [ RunTime:0.0054s ]
+
+[ 2016-01-21T23:48:38+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000418s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000620s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000714s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0149s ]
+SQL: INSERT INTO `user` (`username`,`password`,`village_id`) VALUES ('hong1','38906cb4cbe2a72f8592cd501fe0a1e4','1') [ RunTime:0.0055s ]
+
+[ 2016-01-21T23:49:19+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000046s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000455s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000571s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000697s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0168s ]
+SQL: INSERT INTO `user` (`username`,`password`,`village_id`) VALUES ('gggg','c1ebb4933e06ce5617483f665e26627c','1') [ RunTime:0.0054s ]
+
+[ 2016-01-21T23:53:06+08:00 ] 127.0.0.1 /index.php/User/Auth/register
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000398s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000467s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000572s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0139s ]
+SQL: INSERT INTO `user` (`username`,`password`,`village_id`) VALUES ('fgdg','a8d0555c213aa52d3c968d60cd6731dd','1') [ RunTime:0.0054s ]
+
