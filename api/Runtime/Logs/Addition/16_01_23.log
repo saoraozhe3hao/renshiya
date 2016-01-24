@@ -898,3 +898,74 @@ SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0110s ]
 SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 AND id=2 ) LIMIT 1   [ RunTime:0.0003s ]
 SQL: SELECT * FROM `add_gfqjz_instance` WHERE ( position_id=2 AND TO_DAYS(serve_date)>TO_DAYS(NOW()) ) ORDER BY serve_date  [ RunTime:0.0003s ]
 
+[ 2016-01-23T18:59:40+08:00 ] ::1 /index.php/Addition/Gfqjz/position
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000037s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000577s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000860s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001028s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_position` [ RunTime:0.0140s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0108s ]
+SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T18:59:46+08:00 ] ::1 /index.php/Addition/Gfqjz/position?id=2
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000385s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000526s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000616s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_position` [ RunTime:0.0118s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0098s ]
+SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 AND id=2 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `add_gfqjz_instance` WHERE ( position_id=2 AND TO_DAYS(serve_date)>TO_DAYS(NOW()) ) ORDER BY serve_date  [ RunTime:0.0003s ]
+
+[ 2016-01-23T19:14:24+08:00 ] ::1 /index.php/Addition/Gfqjz/position
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000459s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000910s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001090s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_position` [ RunTime:0.0203s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0150s ]
+SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 )  [ RunTime:0.0004s ]
+
+[ 2016-01-23T19:14:28+08:00 ] ::1 /index.php/Addition/Gfqjz/position?id=2
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000030s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000516s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000672s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000796s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_position` [ RunTime:0.0127s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0106s ]
+SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 AND id=2 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `add_gfqjz_instance` WHERE ( position_id=2 AND TO_DAYS(serve_date)>TO_DAYS(NOW()) ) ORDER BY serve_date  [ RunTime:0.0003s ]
+SQL: select comment.* from add_gfqjz_instance instance,comment where instance.position_id=2 AND comment.service_id=instance.id AND comment.comment_to=7 [ RunTime:0.0292s ]
+
+[ 2016-01-23T19:17:56+08:00 ] ::1 /index.php/Addition/Gfqjz/position
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000034s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000652s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000982s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001144s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_position` [ RunTime:0.0187s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0116s ]
+SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 )  [ RunTime:0.0003s ]
+
+[ 2016-01-23T19:17:58+08:00 ] ::1 /index.php/Addition/Gfqjz/position?id=2
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000482s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000853s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001014s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_position` [ RunTime:0.0130s ]
+SQL: SHOW COLUMNS FROM `add_gfqjz_instance` [ RunTime:0.0102s ]
+SQL: SELECT * FROM `add_gfqjz_position` WHERE ( status=0 AND id=2 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `add_gfqjz_instance` WHERE ( position_id=2 AND TO_DAYS(serve_date)>TO_DAYS(NOW()) ) ORDER BY serve_date  [ RunTime:0.0003s ]
+SQL: select comment.* from add_gfqjz_instance instance,comment where instance.position_id=2 AND comment.service_id=instance.id AND comment.comment_to=7 [ RunTime:0.0003s ]
+
