@@ -42,6 +42,16 @@ var app = angular.module("renshiya", ['ui.router']).
                     url: '/sbsfc',
                     templateUrl: 'views/service/sbsfc.html',
                     controller: sbsfcCtrl
+                })
+                .state('ban', {
+                    url: '/ban?field&category&subject',
+                    templateUrl: 'views/service/ban.html',
+                    controller: banCtrl
+                })
+                .state('fuwu', {
+                    url: '/fuwu',
+                    templateUrl: 'views/service/fuwu.html',
+                    controller: fuwuCtrl
                 });
         }
     ]);
@@ -484,7 +494,6 @@ function sbsfcCtrl($scope,$rootScope, $http,timeService) {
             error(function (data, status, headers, config) {
                 console.log(status);
             });
-
     }
 
     $scope.goAdd = function(){
@@ -591,6 +600,228 @@ function sbsfcCtrl($scope,$rootScope, $http,timeService) {
     init();
 }
 
+//服务 班团
+function banCtrl($scope,$rootScope, $http,$stateParams) {
+
+    //公共区
+    function init(){
+        $scope.curView = "list";
+        $http.get('/index.php/Service/Ban/class',$stateParams).
+            success(function (data, status, headers, config) {
+                $scope.classes = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //list 区
+    $scope.goDetail = function(id){
+        $scope.changeView("detail");
+        $http.get('/index.php/Service/Ban/class?id='+id).
+            success(function (data, status, headers, config) {
+                //线路
+                $scope.curClass = data.class? data.class : {};
+                //线路认领记录
+                $scope.instances = data.instance? data.instance : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goAdd = function(){
+        $scope.editClass = {};
+        $scope.changeView("edit");
+    }
+
+    //detail 区
+    $scope.goEdit = function(){
+        $scope.editClass = $scope.curClass;
+        $scope.changeView("edit");
+    }
+
+    $scope.claim = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.post('/index.php/Service/Ban/instance', {classId:$scope.curClass.id}).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    $scope.goDetail($scope.curClass.id);
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.remove = function(id){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.delete('/index.php/Service/Ban/class?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    // edit 区
+    $scope.add = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.post('/index.php/Service/Ban/class',$scope.editClass).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.put('/index.php/Service/Ban/class?id='+$scope.editClass.id,$scope.editClass).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    $scope.goDetail($scope.editClass.id);
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
+}
+
+//服务 一般服务
+function fuwuCtrl($scope,$rootScope, $http,timeService) {
+
+    //公共区
+    function init(){
+        $scope.curView = "list";
+        $http.get('/index.php/Service/Fuwu/item').
+            success(function (data, status, headers, config) {
+                $scope.items = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //list 区
+    $scope.goDetail = function(id){
+        $scope.changeView("detail");
+        $http.get('/index.php/Service/Fuwu/item?id='+id).
+            success(function (data, status, headers, config) {
+                $scope.curItem = data.class? data.class : {};
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goAdd = function(){
+        $scope.editItem = {};
+        $scope.changeView("edit");
+    }
+
+    //detail 区
+    $scope.goEdit = function(){
+        $scope.editItem = $scope.curItem;
+        $scope.changeView("edit");
+    }
+
+    $scope.claim = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.post('/index.php/Service/Fuwu/instance', {itemId:$scope.curItem.id}).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    $scope.goDetail($scope.curItem.id);
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.remove = function(id){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.delete('/index.php/Service/Fuwu/item?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    // edit 区
+    $scope.add = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.post('/index.php/Service/Fuwu/item',$scope.editItem).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        if(!$rootScope.user){
+            $rootScope.showPop('login');
+            return;
+        }
+        $http.put('/index.php/Service/Fuwu/item?id='+$scope.editItem.id,$scope.editItem).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    $scope.goDetail($scope.editItem.id);
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    init();
+}
 
 //服务
 function timeService(){

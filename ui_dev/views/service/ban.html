@@ -1,0 +1,58 @@
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div ng-repeat="class in classes">
+        <a href="" ng-click="goDetail(class.id)">{{class.title}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="开班" ng-click="goAdd()">
+</div>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curClass.address}} {{curClass.content}} {{curClass.description}} {{curClass.price}}
+        {{curClass.title}}
+    </div>
+    <!--报名情况-->
+    <div ng-repeat="instance in instances">{{instance.claim_id}} 已报名</div>
+
+    <input class="btn btn-default" type="button" value="报名" ng-click="claim()">
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curClass.id)">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>地点：</label>
+        <input type="text" ng-model="editClass.address">
+    </div>
+    <div>
+        <label>活动内容：</label>
+        <input type="text" ng-model="editClass.content">
+    </div>
+    <div>
+        <label>描述：</label>
+        <input type="text" ng-model="editClass.description">
+    </div>
+    <div>
+        <label>价格：</label>
+        <input type="text" ng-model="editClass.price">
+    </div>
+    <div>
+        <label>最小开班人数：</label>
+        <input type="text" ng-model="editClass.min_num">
+    </div>
+    <div>
+        <label>最大接收人数：</label>
+        <input type="text" ng-model="editClass.max_num">
+    </div>
+    <div>
+        <label>标题：</label>
+        <input type="text" ng-model="editClass.title">
+    </div>
+    <div>
+        <label>报名截止：</label>
+        <input type="text" ng-model="editClass.term">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="add()" ng-if="!curClass.id">
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!curClass.id">
+</div>

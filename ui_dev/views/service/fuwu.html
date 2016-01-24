@@ -1,0 +1,52 @@
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div ng-repeat="item in items">
+        <a href="" ng-click="goDetail(item.id)">{{item.title}} {{item.description}} {{item.price}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="开班" ng-click="goAdd()">
+</div>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curItem.address}} {{curItem.description}} {{curItem.price}}
+        {{curItem.title}}
+    </div>
+
+    <input class="btn btn-default" type="button" value="预订" ng-click="claim()">
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curItem.id)">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>地点：</label>
+        <input type="text" ng-model="editItem.address">
+    </div>
+    <div>
+        <label>描述：</label>
+        <input type="text" ng-model="editItem.description">
+    </div>
+    <div>
+        <label>价格：</label>
+        <input type="text" ng-model="editItem.price">
+    </div>
+    <div>
+        <label>服务方式：</label>
+        <input type="text" ng-model="editItem.serve_method">
+    </div>
+    <div>
+        <label>收费方式：</label>
+        <input type="text" ng-model="editItem.charge_method">
+    </div>
+    <div>
+        <label>标题：</label>
+        <input type="text" ng-model="editItem.title">
+    </div>
+    <div>
+        <label>有效期：</label>
+        <input type="text" ng-model="editItem.term">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="add()" ng-if="!curItem.id">
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!curItem.id">
+</div>

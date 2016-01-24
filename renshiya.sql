@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2016 年 01 月 24 日 03:54
+-- 生成日期: 2016 年 01 月 24 日 13:43
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -219,20 +219,30 @@ CREATE TABLE IF NOT EXISTS `member` (
 
 CREATE TABLE IF NOT EXISTS `ser_ban_class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(40) NOT NULL COMMENT '班类型',
   `address` varchar(80) NOT NULL COMMENT '地址',
   `content` varchar(200) NOT NULL COMMENT '活动内容，时间，时长',
   `description` varchar(1024) NOT NULL COMMENT '详细介绍',
-  `status` int(11) NOT NULL COMMENT '状态，0：未开放；1：报班中；2：开班中；3：持续接收；4：已关闭',
+  `status` int(11) NOT NULL COMMENT '状态，0：未开放；1：报班中；2：开班中；3：持续接收；4：已关闭；5：已删除',
   `price` varchar(60) NOT NULL COMMENT '价格',
   `publish_id` int(11) NOT NULL COMMENT '发布人ID',
   `min_num` int(11) NOT NULL COMMENT '最小开班人数',
   `max_num` int(11) NOT NULL COMMENT '最大接收人数',
   `term` date NOT NULL COMMENT '报名有效期',
   `title` varchar(60) CHARACTER SET utf8mb4 NOT NULL COMMENT '班团标题',
+  `field` int(11) NOT NULL COMMENT '领域',
+  `category` int(11) NOT NULL COMMENT '类别',
+  `subject` int(11) NOT NULL COMMENT '科目',
   PRIMARY KEY (`id`),
   KEY `publish_id` (`publish_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='培训班、旅游团' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='培训班、旅游团' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `ser_ban_class`
+--
+
+INSERT INTO `ser_ban_class` (`id`, `address`, `content`, `description`, `status`, `price`, `publish_id`, `min_num`, `max_num`, `term`, `title`, `field`, `category`, `subject`) VALUES
+(1, '锦业公寓', '补习班 英语', '来吧来吧', 1, '20元/小时', 7, 10, 10, '2025-01-17', '初中英语补习班', 5, 2, 2),
+(2, '零一广场', '培训', 'dd', 5, '45每天', 7, 23, 35, '2016-05-06', '培训啦', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -246,35 +256,80 @@ CREATE TABLE IF NOT EXISTS `ser_ban_instance` (
   `claim_id` int(11) NOT NULL COMMENT '报班人ID',
   `class_id` int(11) NOT NULL COMMENT '培训班ID',
   `status` int(11) NOT NULL COMMENT '服务状态，0：已报名；1：已完成；2：已取消；3：发布人撤销；4：报班人撤销',
-  `time` datetime NOT NULL COMMENT '报名时间',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '报名时间',
   `turnover` float NOT NULL COMMENT '成交额',
   PRIMARY KEY (`id`),
   KEY `publish_id` (`publish_id`),
   KEY `claim_id` (`claim_id`),
   KEY `class_id` (`class_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='报班信息表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='报班信息表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `ser_ban_instance`
+--
+
+INSERT INTO `ser_ban_instance` (`id`, `publish_id`, `claim_id`, `class_id`, `status`, `time`, `turnover`) VALUES
+(1, 7, 7, 1, 0, '2016-01-24 09:25:52', 0);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `ser_fw_instance`
+-- 表的结构 `ser_fuwu_instance`
 --
 
-CREATE TABLE IF NOT EXISTS `ser_fw_instance` (
+CREATE TABLE IF NOT EXISTS `ser_fuwu_instance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `publish_id` int(11) NOT NULL COMMENT '发布者ID',
+  `claim_id` int(11) NOT NULL COMMENT '认领者ID',
+  `item_id` int(11) NOT NULL COMMENT '服务项目ID',
+  `status` int(11) NOT NULL COMMENT '服务状态，0：已预定；1：已完成；2：已取消；3：发布人撤销；4：报班人撤销',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预定时间',
+  `turnover` int(11) NOT NULL COMMENT '成交额',
+  PRIMARY KEY (`id`),
+  KEY `publish_id` (`publish_id`),
+  KEY `claim_id` (`claim_id`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务预定表' AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `ser_fuwu_instance`
+--
+
+INSERT INTO `ser_fuwu_instance` (`id`, `publish_id`, `claim_id`, `item_id`, `status`, `time`, `turnover`) VALUES
+(1, 7, 7, 1, 0, '2016-01-24 13:42:13', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ser_fuwu_item`
+--
+
+CREATE TABLE IF NOT EXISTS `ser_fuwu_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `publish_id` int(11) NOT NULL COMMENT '发布人ID',
   `title` varchar(60) NOT NULL COMMENT '服务标题',
   `term` date NOT NULL COMMENT '有效期',
   `price` varchar(60) NOT NULL COMMENT '价格',
   `address` varchar(80) NOT NULL COMMENT '地点、国家',
-  `type` varchar(40) NOT NULL COMMENT '服务类型',
   `status` int(11) NOT NULL COMMENT '状态，0：未开放；1：正常；2：已关闭',
   `description` varchar(1024) NOT NULL COMMENT '服务描述',
   `serve_method` int(11) NOT NULL COMMENT '服务方式，0：未知；1：上门；2：到店；3：远程',
   `charge_method` int(11) NOT NULL COMMENT '收费方式，0：未知；1：先收费；2：后收费；3：先付一半',
+  `field` int(11) NOT NULL COMMENT '领域',
+  `category` int(11) NOT NULL COMMENT '类别',
+  `subject` int(11) NOT NULL COMMENT '科目',
   PRIMARY KEY (`id`),
   KEY `publish_id` (`publish_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务表' AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `ser_fuwu_item`
+--
+
+INSERT INTO `ser_fuwu_item` (`id`, `publish_id`, `title`, `term`, `price`, `address`, `status`, `description`, `serve_method`, `charge_method`, `field`, `category`, `subject`) VALUES
+(1, 7, '小学语文家教', '2016-08-16', '10元/天', '钟楼', 1, '描述', 1, 2, 2, 1, 1),
+(2, 7, '', '0000-00-00', '', '', 1, '', 0, 0, 0, 0, 0),
+(3, 7, 'dddttt', '2015-04-06', '33', 'dddttt', 5, 'dddttt', 2, 2, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -491,10 +546,18 @@ ALTER TABLE `ser_ban_instance`
   ADD CONSTRAINT `ser_ban_instance_ibfk_3` FOREIGN KEY (`class_id`) REFERENCES `ser_ban_class` (`id`);
 
 --
--- 限制表 `ser_fw_instance`
+-- 限制表 `ser_fuwu_instance`
 --
-ALTER TABLE `ser_fw_instance`
-  ADD CONSTRAINT `ser_fw_instance_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
+ALTER TABLE `ser_fuwu_instance`
+  ADD CONSTRAINT `ser_fuwu_instance_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ser_fuwu_instance_ibfk_2` FOREIGN KEY (`claim_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ser_fuwu_instance_ibfk_3` FOREIGN KEY (`item_id`) REFERENCES `ser_fuwu_item` (`id`);
+
+--
+-- 限制表 `ser_fuwu_item`
+--
+ALTER TABLE `ser_fuwu_item`
+  ADD CONSTRAINT `ser_fuwu_item_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `ser_sbsfc_instance`

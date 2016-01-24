@@ -75,6 +75,7 @@
     window.user = '<?php  if( isset( $_SESSION["user"] ) ){ echo json_encode( $_SESSION["user"] ) ; } ?>';
 
 </script>
+<script src="js/codes.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
