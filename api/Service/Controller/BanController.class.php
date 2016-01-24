@@ -10,12 +10,15 @@ class BanController  extends RestController {
     public function class_get(){
         $Class = M("Ser_ban_class");
         $Instance = M("Ser_ban_instance");
+        $model = M();
        
         if( isset( $_GET['id'] ) ){
             $where =  'id='.$_GET['id'];
             $classData = $Class->where($where )->find();
             $instanceData = $Instance->where('class_id='.$_GET['id'] ) ->select();
-            $data = array('class'=>$classData,'instance'=>$instanceData);
+            $CommentData = $model->query('select comment.* from ser_ban_instance instance,comment'.
+                ' where instance.class_id='.$_GET['id'].' AND comment.service_id=instance.id AND comment.comment_to='.$classData['publish_id']);
+            $data = array('class'=>$classData,'instance'=>$instanceData,'comment'=>$CommentData);
         }
         else{
             $where =  'status=1';
@@ -69,6 +72,7 @@ class BanController  extends RestController {
     public function instance_post(){
         $Class = M("Ser_ban_class");
         $Instance = M("Ser_ban_instance");
+        $UserBill = M("User_bill");
         $_POST = json_decode (file_get_contents('php://input'),true);
         
         $clsassData = $Class->where( 'id='.$_POST['classId'] )->find();
@@ -79,7 +83,30 @@ class BanController  extends RestController {
             "status"=>0,
             "turnover"=>0
         );
-        $Instance->add($data);
+        $insertId = $Instance->add($data);
+        
+        //每一个服务实例，双方分别记录订单
+        $claimBill = array(
+            'user_id'=>$_SESSION["user"]['id'],
+            'type'=>0,
+            "service_type"=>"ser_ban",
+            "service_id"=>$insertId,
+            "event"=>"报班",
+            "turnover"=>0,
+            "balance"=>$_SESSION["member"]['balance']
+        );
+        $UserBill->add($claimBill);
+         
+        $publishBill = array(
+            'user_id'=>$clsassData['publish_id'],
+            'type'=>0,
+            "service_type"=>"ser_ban",
+            "service_id"=>$insertId,
+            "event"=>"班被报",
+            "turnover"=>0,
+            "balance"=> 0
+        );
+        $UserBill->add($publishBill);
         echo $this->response(array("status"=>"200"),'json');
     }
 }

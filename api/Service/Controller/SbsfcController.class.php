@@ -10,11 +10,14 @@ class SbsfcController  extends RestController {
     public function route_get(){
         $Route = M("Ser_sbsfc_route");
         $Instance = M("Ser_sbsfc_instance");
+        $model = M();
        
         if( isset( $_GET['id'] ) ){
             $routeData = $Route->where( 'status=0 AND id='.$_GET['id'] )->find();
             $instanceData = $Instance->where('route_id='.$_GET['id'].' AND TO_DAYS(serve_date)>TO_DAYS(NOW())' )->order('serve_date')->select();
-            $data = array('time'=>time(),'route'=>$routeData,'instance'=>$instanceData);
+            $CommentData = $model->query('select comment.* from ser_sbsfc_instance instance,comment'.
+                ' where instance.route_id='.$_GET['id'].' AND comment.service_id=instance.id AND comment.comment_to='.$routeData['publish_id']);
+            $data = array('time'=>time(),'route'=>$routeData,'instance'=>$instanceData,'comment'=>$CommentData);
         }
         else{
             $data = $Route->where('status=0')->select();
@@ -59,6 +62,7 @@ class SbsfcController  extends RestController {
     public function instance_post(){
         $Route = M("Ser_sbsfc_route");
         $Instance = M("Ser_sbsfc_instance");
+        $UserBill = M("User_bill");
         $_POST = json_decode (file_get_contents('php://input'),true);
         
         $routeData = $Route->where( 'status=0 AND id='.$_POST['routeId'] )->find();
@@ -73,7 +77,30 @@ class SbsfcController  extends RestController {
         );
         foreach($_POST["serve_dates"] as $k=>$v){
             $data['serve_date'] = $v;
-           $Instance->add($data);
+           $insertId = $Instance->add($data);
+           
+           //每一个服务实例，双方分别记录订单
+           $claimBill = array(
+               'user_id'=>$_SESSION["user"]['id'],
+               'type'=>0,
+               "service_type"=>"serv_sbsfc",
+               "service_id"=>$insertId,
+               "event"=>"认领上班顺风车",
+               "turnover"=>-$routeData['price_'.$point],
+               "balance"=>$_SESSION["member"]['balance']
+           );
+           $UserBill->add($claimBill);
+           
+           $publishBill = array(
+               'user_id'=>$routeData['publish_id'],
+               'type'=>0,
+               "service_type"=>"serv_sbsfc",
+               "service_id"=>$insertId,
+               "event"=>"上班顺风车被认领",
+               "turnover"=>$routeData['price_'.$point],
+               "balance"=> 0
+           );
+           $UserBill->add($publishBill);
         }
         echo $this->response(array("status"=>"200"),'json');
     }

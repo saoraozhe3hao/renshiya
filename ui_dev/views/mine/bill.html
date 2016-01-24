@@ -6,12 +6,14 @@
         <a href="" ng-click="goComment($index)">评论{{bill.service_id}}</a>
     </div>
 </div>
+<!-- 评论 -->
 <div ng-show="curView == 'comment'">
     <div><a href="" ng-click="changeView('list')">返回</a></div>
     {{comment.content}}
     <div><input class="btn btn-default" type="button" value="修改评论" ng-click="goEditComment()"></div>
     <div><input class="btn btn-default" type="button" value="删除评论" ng-click="removeComment()"></div>
 </div>
+<!-- 编辑评论 -->
 <div ng-show="curView == 'edit_comment'">
     <div><a href="" ng-click="changeView('list')">返回</a></div>
     <div>

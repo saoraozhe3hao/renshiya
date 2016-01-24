@@ -107,7 +107,7 @@ function topCtrl($rootScope,$scope, $state,$http) {
                 console.log(status);
             });
 
-        $http.get('/index.php/User/Comment/comment?user_id='+id).
+        $http.get('/index.php/User/Comment/user_comment?user_id='+id).
             success(function (data, status, headers, config) {
                 $rootScope.checkComments = data ? data : [];
             }).
@@ -168,7 +168,12 @@ function billCtrl($scope, $http) {
     $scope.goComment = function(index){
         $scope.changeView('comment');
         $scope.curBill = $scope.bills[index];
-        $http.get('/index.php/User/Comment/bill_comment?service_id=' + $scope.curBill.service_id).
+        var search = {
+            service_type:$scope.curBill.service_type,
+            service_id:$scope.curBill.service_id
+        }
+        $http.get('/index.php/User/Comment/bill_comment?service_type='+
+            $scope.curBill.service_type+'&service_id='+$scope.curBill.service_id).
             success(function (data, status, headers, config) {
                 $scope.comment = data;
                 if(!$scope.comment){
@@ -240,7 +245,7 @@ function commentCtrl($scope, $http) {
     function init(){
         $scope.curView = "list";
 
-        $http.get('/index.php/User/Comment/comment').
+        $http.get('/index.php/User/Comment/user_comment').
             success(function (data, status, headers, config) {
                 $scope.comments = data ? data : [];
             }).
@@ -471,6 +476,8 @@ function sbsfcCtrl($scope,$rootScope, $http,timeService) {
                 $scope.curRoute = data.route? data.route : {};
                 //线路认领记录
                 var instances = data.instance? data.instance : [];
+                //评论
+                $scope.comments = data.comment? data.comment : [];
                 //页面上的日期卡片
                 $scope.cards = [];
                 for(var i=0;i<7;i++){
@@ -628,6 +635,8 @@ function banCtrl($scope,$rootScope, $http,$stateParams) {
                 $scope.curClass = data.class? data.class : {};
                 //线路认领记录
                 $scope.instances = data.instance? data.instance : [];
+                //评论
+                $scope.comments = data.comment? data.comment : [];
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
@@ -738,6 +747,8 @@ function fuwuCtrl($scope,$rootScope, $http,timeService) {
         $http.get('/index.php/Service/Fuwu/item?id='+id).
             success(function (data, status, headers, config) {
                 $scope.curItem = data.class? data.class : {};
+                //评论
+                $scope.comments = data.comment? data.comment : [];
             }).
             error(function (data, status, headers, config) {
                 console.log(status);

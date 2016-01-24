@@ -108,7 +108,7 @@ class GfqjzController  extends RestController {
                 "service_id"=>$insertId,
                 "event"=>"认领高峰期兼职",
                 "turnover"=>$positionData['reward'],
-                "balance"=>$_SESSION['user']['balance']
+                "balance"=>$_SESSION["member"]['balance']
             );
             $UserBill->add($claimBill);
             

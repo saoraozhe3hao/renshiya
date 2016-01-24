@@ -9,11 +9,14 @@ class FuwuController  extends RestController {
     
     public function item_get(){
         $Item = M("Ser_fuwu_item");
-       
+        $model = M();
+        
         if( isset( $_GET['id'] ) ){
             $where =  'id='.$_GET['id'];
             $itemData = $Item->where($where )->find();
-            $data = array('class'=>$itemData);
+            $CommentData = $model->query('select comment.* from ser_fuwu_instance instance,comment'.
+                ' where instance.item_id='.$_GET['id'].' AND comment.service_id=instance.id AND comment.comment_to='.$itemData['publish_id']);
+            $data = array('class'=>$itemData,'comment'=>$CommentData);
         }
         else{
             $where =  'status=1';
@@ -67,6 +70,7 @@ class FuwuController  extends RestController {
     public function instance_post(){
         $Item = M("Ser_fuwu_item");
         $Instance = M("Ser_fuwu_instance");
+        $UserBill = M("User_bill");
         $_POST = json_decode (file_get_contents('php://input'),true);
         
         $itemData = $Item->where( 'id='.$_POST['itemId'] )->find();
@@ -77,7 +81,30 @@ class FuwuController  extends RestController {
             "status"=>0,
             "turnover"=>0
         );
-        $Instance->add($data);
+        $insertId = $Instance->add($data);
+        
+        //每一个服务实例，双方分别记录订单
+        $claimBill = array(
+            'user_id'=>$_SESSION["user"]['id'],
+            'type'=>0,
+            "service_type"=>"ser_fuwu",
+            "service_id"=>$insertId,
+            "event"=>"接受服务",
+            "turnover"=>0,
+            "balance"=>$_SESSION["member"]['balance']
+        );
+        $UserBill->add($claimBill);
+         
+        $publishBill = array(
+            'user_id'=>$itemData['publish_id'],
+            'type'=>0,
+            "service_type"=>"ser_fuwu",
+            "service_id"=>$insertId,
+            "event"=>"提供服务",
+            "turnover"=>0,
+            "balance"=> 0
+        );
+        $UserBill->add($publishBill);
         echo $this->response(array("status"=>"200"),'json');
     }
 }

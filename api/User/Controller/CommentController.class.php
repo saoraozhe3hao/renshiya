@@ -7,7 +7,7 @@ class CommentController  extends RestController {
     protected $allowType      = array('json'); 
     protected $defaultType = "json";
     
-    public function comment_get(){
+    public function user_comment_get(){
         $Comment = M("Comment");
         $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION["user"]['id'];
        
@@ -18,7 +18,7 @@ class CommentController  extends RestController {
     public function bill_comment_get(){
         $Comment = M("Comment");
          
-        $data = $Comment->where('service_id='.$_GET['service_id'].' AND comment_by='.$_SESSION["user"]['id'])->find();
+        $data = $Comment->where('service_id='.$_GET['service_id'].' AND service_type="'.$_GET['service_type'].'" AND comment_by='.$_SESSION["user"]['id'])->find();
         echo $this->response($data,'json');
     }
     

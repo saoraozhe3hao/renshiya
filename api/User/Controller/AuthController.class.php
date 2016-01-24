@@ -8,30 +8,43 @@ class AuthController  extends RestController {
     protected $defaultType = "json";
     
     public function register_post(){
-        //根据表名创建模型
         $User = M("User");
+        $Member = M("Member");
         //获取请求体并转为数组，直接用$_POST获取不到，true表示转为数组
         $_POST = json_decode (file_get_contents('php://input'),true);
-        $data = array(
+        
+        $userData = array(
             'username'=>$_POST["username"],
             'password'=>md5($_POST["password"]),
             'phone'=>$_POST["phone"],
             "village_id"=>1
         );
         //增
-       $insertId = $User->add($data);
-       $userData = $User->where( 'id='.$insertId)->find();
+       $userId = $User->add($userData);
+       
+       $memberData = array(
+           'user_id'=>$userId
+       );
+       //增
+       $Member->add($memberData);
+       
+       $userData = $User->where( 'id='.$userId)->find();
+       $memberData = $Member->where( 'user_id='.$userId)->find();
        $_SESSION["user"] = $userData;
+       $_SESSION["member"] = $memberData;
        echo $this->response($userData,'json');
     }
     
     public function login_post(){
         $User = M("User");
+        $Member = M("Member");
         $_POST = json_decode (file_get_contents('php://input'),true);
         
         $userData = $User->where( 'username="'.$_POST["username"].'"')->find();
         if($userData["password"] == md5($_POST["password"]) ){
             $_SESSION["user"] = $userData;
+            $memberData = $Member->where( 'user_id='.$userData['id'])->find();
+            $_SESSION["member"] = $memberData;
             echo $this->response(array("code"=>200,"data"=>$userData),'json');
         }
         else{
