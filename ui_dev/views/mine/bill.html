@@ -1,7 +1,23 @@
 <!-- 列表 -->
-<div><a href="#/mine">返回</a></div>
 <div ng-show="curView == 'list'">
+    <div><a href="#/mine">返回</a></div>
     <div ng-repeat="bill in bills">
         {{bill.event}} {{bill.turnover}}
+        <a href="" ng-click="goComment($index)">评论{{bill.service_id}}</a>
+    </div>
+</div>
+<div ng-show="curView == 'comment'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    {{comment.content}}
+    <div><input class="btn btn-default" type="button" value="修改评论" ng-click="goEditComment()"></div>
+    <div><input class="btn btn-default" type="button" value="删除评论" ng-click="removeComment()"></div>
+</div>
+<div ng-show="curView == 'edit_comment'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>内容：</label>
+        <input type="text" ng-model="editComment.content">
+        <input class="btn btn-default" type="button" value="提交" ng-click="addComment()" ng-if="!editComment.id">
+        <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!editComment.id">
     </div>
 </div>

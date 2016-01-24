@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2016 年 01 月 23 日 09:28
+-- 生成日期: 2016 年 01 月 24 日 03:54
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -89,7 +89,7 @@ INSERT INTO `add_gfqjz_position` (`id`, `address`, `description`, `publish_id`, 
 
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `service_type` int(11) NOT NULL COMMENT '服务类型编号',
+  `service_type` varchar(15) NOT NULL COMMENT '服务类型编号',
   `service_id` int(11) NOT NULL COMMENT '服务ID',
   `comment_by` int(11) NOT NULL COMMENT '评论人',
   `comment_to` int(11) NOT NULL COMMENT '被评论人',
@@ -99,14 +99,15 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `comment_by` (`comment_by`),
   KEY `comment_to` (`comment_to`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='评价表' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='评价表' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `comment`
 --
 
 INSERT INTO `comment` (`id`, `service_type`, `service_id`, `comment_by`, `comment_to`, `score`, `content`, `time`) VALUES
-(1, 0, 4, 7, 7, 90, '好得很', '2016-01-23 07:43:50');
+(1, 'add_gfqjz', 4, 7, 7, 90, '好得很', '2016-01-23 10:37:56'),
+(3, 'add_gfqjz', 5, 7, 7, 0, 'dff66', '2016-01-23 10:59:29');
 
 -- --------------------------------------------------------
 
@@ -209,6 +210,71 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='成员表，从用户表分离出来' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ser_ban_class`
+--
+
+CREATE TABLE IF NOT EXISTS `ser_ban_class` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(40) NOT NULL COMMENT '班类型',
+  `address` varchar(80) NOT NULL COMMENT '地址',
+  `content` varchar(200) NOT NULL COMMENT '活动内容，时间，时长',
+  `description` varchar(1024) NOT NULL COMMENT '详细介绍',
+  `status` int(11) NOT NULL COMMENT '状态，0：未开放；1：报班中；2：开班中；3：持续接收；4：已关闭',
+  `price` varchar(60) NOT NULL COMMENT '价格',
+  `publish_id` int(11) NOT NULL COMMENT '发布人ID',
+  `min_num` int(11) NOT NULL COMMENT '最小开班人数',
+  `max_num` int(11) NOT NULL COMMENT '最大接收人数',
+  `term` date NOT NULL COMMENT '报名有效期',
+  `title` varchar(60) CHARACTER SET utf8mb4 NOT NULL COMMENT '班团标题',
+  PRIMARY KEY (`id`),
+  KEY `publish_id` (`publish_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='培训班、旅游团' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ser_ban_instance`
+--
+
+CREATE TABLE IF NOT EXISTS `ser_ban_instance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `publish_id` int(11) NOT NULL COMMENT '发布人ID',
+  `claim_id` int(11) NOT NULL COMMENT '报班人ID',
+  `class_id` int(11) NOT NULL COMMENT '培训班ID',
+  `status` int(11) NOT NULL COMMENT '服务状态，0：已报名；1：已完成；2：已取消；3：发布人撤销；4：报班人撤销',
+  `time` datetime NOT NULL COMMENT '报名时间',
+  `turnover` float NOT NULL COMMENT '成交额',
+  PRIMARY KEY (`id`),
+  KEY `publish_id` (`publish_id`),
+  KEY `claim_id` (`claim_id`),
+  KEY `class_id` (`class_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='报班信息表' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ser_fw_instance`
+--
+
+CREATE TABLE IF NOT EXISTS `ser_fw_instance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `publish_id` int(11) NOT NULL COMMENT '发布人ID',
+  `title` varchar(60) NOT NULL COMMENT '服务标题',
+  `term` date NOT NULL COMMENT '有效期',
+  `price` varchar(60) NOT NULL COMMENT '价格',
+  `address` varchar(80) NOT NULL COMMENT '地点、国家',
+  `type` varchar(40) NOT NULL COMMENT '服务类型',
+  `status` int(11) NOT NULL COMMENT '状态，0：未开放；1：正常；2：已关闭',
+  `description` varchar(1024) NOT NULL COMMENT '服务描述',
+  `serve_method` int(11) NOT NULL COMMENT '服务方式，0：未知；1：上门；2：到店；3：远程',
+  `charge_method` int(11) NOT NULL COMMENT '收费方式，0：未知；1：先收费；2：后收费；3：先付一半',
+  PRIMARY KEY (`id`),
+  KEY `publish_id` (`publish_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务表' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -322,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `user_bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `type` int(11) NOT NULL COMMENT '账单类型，0：预订；1：支出；2：收入；3：提现；4：充值',
-  `service_type` int(11) NOT NULL COMMENT '服务类型编号',
+  `service_type` varchar(15) NOT NULL COMMENT '服务类型编号',
   `service_id` int(11) NOT NULL COMMENT '服务ID',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
   `event` varchar(200) NOT NULL COMMENT '事件',
@@ -337,10 +403,10 @@ CREATE TABLE IF NOT EXISTS `user_bill` (
 --
 
 INSERT INTO `user_bill` (`id`, `user_id`, `type`, `service_type`, `service_id`, `time`, `event`, `balance`, `turnover`) VALUES
-(1, 7, 0, 0, 5, '2016-01-23 07:19:23', '高峰期兼职', 0, 50),
-(2, 7, 0, 0, 5, '2016-01-23 07:19:32', '高峰期兼职', 0, -50),
-(3, 7, 0, 0, 6, '2016-01-23 07:19:40', '高峰期兼职', 0, 50),
-(4, 7, 0, 0, 6, '2016-01-23 07:19:49', '高峰期兼职', 0, -50);
+(1, 7, 0, 'add_gfqjz', 5, '2016-01-23 10:38:38', '高峰期兼职', 0, 50),
+(2, 7, 0, 'add_gfqjz', 5, '2016-01-23 10:38:46', '高峰期兼职', 0, -50),
+(3, 7, 0, 'add_gfqjz', 6, '2016-01-23 10:38:54', '高峰期兼职', 0, 50),
+(4, 7, 0, 'add_gfqjz', 6, '2016-01-23 10:39:01', '高峰期兼职', 0, -50);
 
 -- --------------------------------------------------------
 
@@ -389,8 +455,8 @@ ALTER TABLE `add_gfqjz_position`
 -- 限制表 `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_to`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_to`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `manager`
@@ -409,6 +475,26 @@ ALTER TABLE `manager_bill`
 --
 ALTER TABLE `member`
   ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- 限制表 `ser_ban_class`
+--
+ALTER TABLE `ser_ban_class`
+  ADD CONSTRAINT `ser_ban_class_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
+
+--
+-- 限制表 `ser_ban_instance`
+--
+ALTER TABLE `ser_ban_instance`
+  ADD CONSTRAINT `ser_ban_instance_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ser_ban_instance_ibfk_2` FOREIGN KEY (`claim_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ser_ban_instance_ibfk_3` FOREIGN KEY (`class_id`) REFERENCES `ser_ban_class` (`id`);
+
+--
+-- 限制表 `ser_fw_instance`
+--
+ALTER TABLE `ser_fw_instance`
+  ADD CONSTRAINT `ser_fw_instance_ibfk_1` FOREIGN KEY (`publish_id`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `ser_sbsfc_instance`

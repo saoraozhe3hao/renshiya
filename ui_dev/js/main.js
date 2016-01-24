@@ -141,10 +141,80 @@ function billCtrl($scope, $http) {
     //公用区
     function init(){
         $scope.curView = "list";
-
         $http.get('/index.php/User/Bill/bill').
             success(function (data, status, headers, config) {
                 $scope.bills = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //列表区
+    $scope.goComment = function(index){
+        $scope.changeView('comment');
+        $scope.curBill = $scope.bills[index];
+        $http.get('/index.php/User/Comment/bill_comment?service_id=' + $scope.curBill.service_id).
+            success(function (data, status, headers, config) {
+                $scope.comment = data;
+                if(!$scope.comment){
+                    $scope.goAddComment();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goAddComment = function(){
+        $scope.changeView("edit_comment");
+        $scope.editComment = {
+            service_type : $scope.curBill["service_type"],
+            service_id : $scope.curBill["service_id"]
+        };
+    }
+
+    //评论区
+    $scope.removeComment = function(id){
+        $http.delete('/index.php/User/Comment/bill_comment?id='+$scope.comment.id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goEditComment = function(){
+        $scope.changeView("edit_comment");
+        $scope.editComment = $scope.comment;
+    }
+
+    //编辑区
+    $scope.addComment = function(){
+        $http.post('/index.php/User/Comment/bill_comment',$scope.editComment).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        $http.put('/index.php/User/Comment/bill_comment?id='+$scope.editComment.id,$scope.editComment).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
@@ -214,7 +284,7 @@ function gfqjzCtrl($scope,$rootScope, $http,timeService) {
     //list 区
     $scope.goDetail = function(id){
         $scope.changeView("detail");
-         $http.get('/index.php/Addition/Gfqjz/position?id='+id).
+        $http.get('/index.php/Addition/Gfqjz/position?id='+id).
              success(function (data, status, headers, config) {
                  //当前时间从后台返回
                  var curDate = new Date(data.time * 1000);
@@ -222,6 +292,8 @@ function gfqjzCtrl($scope,$rootScope, $http,timeService) {
                  $scope.curPosition = data.position? data.position : {};
                  //岗位认领记录
                  var instances = data.instance? data.instance : [];
+                 //评论
+                 $scope.comments = data.comment? data.comment : [];
                  //页面上的日期卡片
                  $scope.cards = [];
                  for(var i=0;i<7;i++){
@@ -245,7 +317,6 @@ function gfqjzCtrl($scope,$rootScope, $http,timeService) {
              error(function (data, status, headers, config) {
                  console.log(status);
              });
-
      }
 
     $scope.goAdd = function(){

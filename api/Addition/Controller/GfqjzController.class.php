@@ -11,12 +11,17 @@ class GfqjzController  extends RestController {
         //根据表名创建模型
         $Position = M("Add_gfqjz_position");
         $Instance = M("Add_gfqjz_instance");
+        //使用空模型访问数据库
+        $model = M();
+        
        
         if( isset( $_GET['id'] ) ){
             //查询详情
             $pasitionData = $Position->where( 'status=0 AND id='.$_GET['id'] )->find();
             $instanceData = $Instance->where('position_id='.$_GET['id'].' AND TO_DAYS(serve_date)>TO_DAYS(NOW())' )->order('serve_date')->select();
-            $data = array('time'=>time(),'position'=>$pasitionData,'instance'=>$instanceData);
+            $CommentData = $model->query('select comment.* from add_gfqjz_instance instance,comment'.
+                ' where instance.position_id='.$_GET['id'].' AND comment.service_id=instance.id AND comment.comment_to='.$pasitionData['publish_id']);
+            $data = array('time'=>time(),'position'=>$pasitionData,'instance'=>$instanceData,'comment'=>$CommentData);
         }
         else{
             //查询列表
@@ -99,7 +104,7 @@ class GfqjzController  extends RestController {
             $claimBill = array(
                 'user_id'=>$_SESSION["user"]['id'],
                 'type'=>0,
-                "service_type"=>0,
+                "service_type"=>"add_gfqjz",
                 "service_id"=>$insertId,
                 "event"=>"认领高峰期兼职",
                 "turnover"=>$positionData['reward'],
@@ -110,7 +115,7 @@ class GfqjzController  extends RestController {
             $publishBill = array(
                 'user_id'=>$positionData['publish_id'],
                 'type'=>0,
-                "service_type"=>0,
+                "service_type"=>"add_gfqjz",
                 "service_id"=>$insertId,
                 "event"=>"高峰期兼职被认领",
                 "turnover"=>-$positionData['reward'],

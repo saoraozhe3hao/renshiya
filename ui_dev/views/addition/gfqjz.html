@@ -26,6 +26,12 @@
     <input class="btn btn-default" type="button" value="认领" ng-click="claim()">
     <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
     <input class="btn btn-default" type="button" value="删除" ng-click="remove(curPosition.id)">
+    <!--评论区-->
+    <div>
+        <div ng-repeat="comment in comments">
+            {{comment.score}} {{comment.content}} {{comment.time}}
+        </div>
+    </div>
 </div>
 <!-- 认领信息 -->
 <div ng-show="curView == 'claimInfo'">
