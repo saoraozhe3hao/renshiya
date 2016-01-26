@@ -12,37 +12,23 @@
     <link href="css/renshiya.css" rel="stylesheet">
 </head>
 <body ng-controller="topCtrl">
+<a href=""  ng-click="logout()">退出</a>
 <div>
     <div ui-view></div>
 </div>
 <div id="navigate">
-    <div class="item"><a href="#/county">区县管理</a></div>
-    <div class="item"><a href="#/manager">小区经理管理</a></div>
-    <div class="item"><a href="#/user">用户管理</a></div>
+    <div class="item"><a href="#/user">本小区用户管理</a></div>
+    <div class="item"><a href="#/mine">我的资料</a></div>
 </div>
-<div id="authentication">
-    <div id="login" ng-show="popType == 'login'">
-        <div class="form-group">
-            <label>用户名：</label>
-            <input type="text" class="form-control" ng-model="login_name">
-        </div>
-        <div class="form-group">
-            <label>密码：</label>
-            <input type="password" class="form-control" ng-model="login_pwd">
-        </div>
-        <input class="btn btn-default" type="button" value="登录" ng-click="login()">
-    </div>
-</div>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/angular.min.js"></script>
 <script src="//cdn.bootcss.com/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 <script>
     <?php  SESSION_START(); ?>
-    window.user = '<?php  if( isset( $_SESSION["user"] ) ){ echo json_encode( $_SESSION["user"] ) ; } ?>';
-
+    window.manager = '<?php  if( isset( $_SESSION["manager"] ) ){ echo json_encode( $_SESSION["manager"] ) ; } ?>';
 </script>
-<script src="js/service_code.js"></script>
-<script src="js/main.js"></script>
+<script src="js/manager.js"></script>
 </body>
 </html>

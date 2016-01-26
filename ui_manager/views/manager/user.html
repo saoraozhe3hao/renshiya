@@ -1,0 +1,25 @@
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div ng-repeat="user in users">
+        <a href="" ng-click="goDetail(user.id)">{{user.username}} {{user.sex}}</a>
+    </div>
+</div>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curUser.username}} {{curUser.sex}} {{curMember.description}}</div>
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>姓：</label>
+        <input type="text" ng-model="editUser.surname">
+    </div>
+    <div>
+        <label>描述：</label>
+        <input type="text" ng-model="editMember.description">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()">
+</div>

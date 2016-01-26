@@ -1,0 +1,23 @@
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div>{{manager.username}} {{manager.sex}} {{manager.name}}</div>
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>名：</label>
+        <input type="text" ng-model="editManager.name">
+    </div>
+    <div>
+        <label>密码：</label>
+        <input type="text" ng-model="editManager.password">
+    </div>
+    <div>
+        <label>性别：</label>
+        <input type="text" ng-model="editManager.sex">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()">
+</div>
+

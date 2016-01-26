@@ -1,22 +1,22 @@
 var app = angular.module("renshiya", ['ui.router']).
     config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('/county');
+            $urlRouterProvider.otherwise('/user');
             $stateProvider
-                .state('county', {
-                    url: '/find',
-                    templateUrl: 'views/county.html',
-                    controller: countyCtrl
-                })
-                .state('manager', {
-                    url: '/manager',
-                    templateUrl: 'views/manager.html',
-                    controller: managerCtrl
-                })
                 .state('user', {
                     url: '/user',
-                    templateUrl: 'views/user.html',
+                    templateUrl: 'views/manager/user.html',
                     controller: userCtrl
+                })
+                .state('mine', {
+                    url: '/mine',
+                    templateUrl: 'views/manager/mine.html',
+                    controller: mineCtrl
+                })
+                .state('login', {
+                    url: '/login',
+                    templateUrl: 'views/manager/login.html',
+                    controller: loginCtrl
                 });
         }
     ]);
@@ -28,23 +28,100 @@ angular.bootstrap($("html")[0], ['renshiya']);
 //首屏控制器
 function topCtrl($rootScope,$scope, $state,$http) {
 
+    //公共区
     function init(){
         $rootScope.$state = $state;
-        if(window.user){
-            $rootScope.user = JSON.parse(window.user);
+        $rootScope.provinces = window.provinces;
+        if(window.manager){
+            $rootScope.manager = JSON.parse(window.manager);
         }
     }
 
-    //弹出框区
-    $rootScope.showPop = function(type){
-        $rootScope.popType = type;
+    //退出
+    $scope.logout = function(){
+        $http.get('/index.php/Manager/Auth/logout').
+            success(function (data, status, headers, config) {
+                window.manager = "";
+                $rootScope.manager = null;
+                $state.go("login");
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
     }
+
+    init();
+}
+
+//登录
+function loginCtrl($scope, $http, $rootScope,$state) {
+
     $rootScope.login = function(){
-        $http.post('/index.php/User/Auth/login', {username:$scope.login_name,password:$scope.login_pwd}).
+        $http.post('/index.php/Manager/Auth/login', {username:$scope.login_name,password:$scope.login_pwd}).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
-                    $rootScope.showPop("");
-                    $rootScope.user = data;
+                    $rootScope.manager = data.manager;
+                    $state.go("user");
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+}
+
+//用户管理
+function userCtrl($scope, $rootScope, $state,$http) {
+    //公用区
+    function init(){
+        if(!$rootScope.manager){
+            $state.go("login");
+            return;
+        }
+        $scope.curView = "list";
+        $http.get('/index.php/Manager/User/user').
+            success(function (data, status, headers, config) {
+                $scope.users = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //list 区
+    $scope.goDetail = function(id){
+        $scope.changeView("detail");
+        $http.get('/index.php/Manager/User/user?id='+id).
+            success(function (data, status, headers, config) {
+                $scope.curUser = data.user? data.user : {};
+                $scope.curMember = data.member? data.member : {};
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    //detail 区
+    $scope.goEdit = function(){
+        $scope.editUser = $scope.curUser;
+        $scope.editMember = $scope.curMember;
+        $scope.changeView("edit");
+    }
+
+    // edit 区
+    $scope.edit = function(){
+        var editData = {
+            user:$scope.editUser,
+            member:$scope.editMember
+        }
+        $http.put('/index.php/Manager/User/user?id='+$scope.editUser.id,editData).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
                 }
             }).
             error(function (data, status, headers, config) {
@@ -54,25 +131,36 @@ function topCtrl($rootScope,$scope, $state,$http) {
 
     init();
 }
-function countyCtrl($scope, $timeout, $interval) {
 
-}
-function managerCtrl($scope, $timeout, $interval) {
-
-}
-function userCtrl($scope, $http,$rootScope) {
-
+//我的资料
+function mineCtrl($scope, $rootScope, $state, $http) {
+    //公用区
     function init(){
-        if(!$rootScope.user){
-            $rootScope.showPop('login');
+        if(!$rootScope.manager){
+            $state.go("login");
             return;
         }
+        $scope.curView = "detail";
     }
-    $scope.logout = function(id){
-        $http.get('/index.php/User/Auth/logout').
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //detail 区
+    $scope.goEdit = function(){
+        $scope.editManager = $scope.manager;
+        $scope.changeView("edit");
+    }
+
+    // edit 区
+    $scope.edit = function(){
+        $http.put('/index.php/Manager/Manager/manager?id='+ $scope.editManager.id,$scope.editManager).
             success(function (data, status, headers, config) {
-                window.user = "";
-                $rootScope.user = null;
+                if(data.code == 200){
+                    $rootScope.manager = data.manager;
+                    init();
+                }
             }).
             error(function (data, status, headers, config) {
                 console.log(status);

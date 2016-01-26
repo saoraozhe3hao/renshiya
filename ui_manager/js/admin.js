@@ -13,15 +13,15 @@ var app = angular.module("renshiya", ['ui.router']).
                     templateUrl: 'views/admin/county.html',
                     controller: countyCtrl
                 })
+                .state('village', {
+                    url: '/village',
+                    templateUrl: 'views/admin/village.html',
+                    controller: villageCtrl
+                })
                 .state('manager', {
                     url: '/manager',
                     templateUrl: 'views/admin/manager.html',
                     controller: managerCtrl
-                })
-                .state('user', {
-                    url: '/user',
-                    templateUrl: 'views/admin/user.html',
-                    controller: userCtrl
                 });
         }
     ]);
@@ -33,6 +33,7 @@ angular.bootstrap($("html")[0], ['renshiya']);
 //首屏控制器
 function topCtrl($rootScope,$scope, $state,$http) {
 
+    //公共区
     function init(){
         $rootScope.$state = $state;
         $rootScope.provinces = window.provinces;
@@ -41,6 +42,7 @@ function topCtrl($rootScope,$scope, $state,$http) {
         }
     }
 
+    //退出
     $scope.logout = function(){
         $http.get('/index.php/Admin/Auth/logout').
             success(function (data, status, headers, config) {
@@ -52,6 +54,7 @@ function topCtrl($rootScope,$scope, $state,$http) {
                 console.log(status);
             });
     }
+
     init();
 }
 
@@ -81,7 +84,11 @@ function countyCtrl($scope, $http, $rootScope,$state) {
             return;
         }
         $scope.curView = "list";
-
+        $scope.searchCounty = {
+            provinceIndex:"0",
+            cityIndex:"0"
+        };
+        setSearchInfo();
         $http.get('/index.php/Admin/County/county').
             success(function (data, status, headers, config) {
                 $scope.counties = data ? data : [];
@@ -96,6 +103,33 @@ function countyCtrl($scope, $http, $rootScope,$state) {
     }
 
     //list 区
+    function setSearchInfo(){
+        var provinces = $scope.provinces;
+        var searchCounty = $scope.searchCounty;
+        searchCounty.province = provinces[searchCounty.provinceIndex].name;
+        searchCounty.city = provinces[searchCounty.provinceIndex].cities[searchCounty.cityIndex];
+    }
+
+    $scope.changeSearchProvince = function(){
+        $scope.searchCounty.cityIndex = "0";
+        setSearchInfo();
+    }
+
+    $scope.changeSearchCity = function(){
+        setSearchInfo();
+    }
+
+    $scope.search = function(){
+        var searchInfo = $scope.searchCounty;
+        $http.get('/index.php/Admin/County/county?province='+searchInfo.province+"&city="+searchInfo.city).
+            success(function (data, status, headers, config) {
+                $scope.counties = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
     $scope.goDetail = function(id){
         $scope.changeView("detail");
         $http.get('/index.php/Admin/County/county?id='+id).
@@ -113,14 +147,11 @@ function countyCtrl($scope, $http, $rootScope,$state) {
             provinceIndex:"0",
             cityIndex:"0"
         };
+        setEditInfo();
         $scope.changeView("edit");
     }
 
     //detail 区
-    $scope.changeProvince = function(){
-        $scope.editCounty.cityIndex = "0";
-    }
-
     $scope.goEdit = function(){
         $scope.editCounty = $scope.curCounty;
         for(var i=0;i < $scope.provinces.length;i++){
@@ -153,9 +184,23 @@ function countyCtrl($scope, $http, $rootScope,$state) {
     }
 
     // edit 区
+    function setEditInfo(){
+        var provinces = $rootScope.provinces;
+        var editCounty = $scope.editCounty;
+        editCounty.province = provinces[editCounty.provinceIndex].name;
+        editCounty.city = provinces[editCounty.provinceIndex].cities[editCounty.cityIndex];
+    }
+
+    $scope.changeEditProvince = function(){
+        $scope.editCounty.cityIndex = "0";
+        setEditInfo()
+    }
+
+    $scope.changeEditCity = function(){
+        setEditInfo();
+    }
+
     $scope.add = function(){
-        $scope.editCounty.province = $scope.provinces[$scope.editCounty.provinceIndex].name;
-        $scope.editCounty.city = $scope.provinces[$scope.editCounty.provinceIndex].cities[$scope.editCounty.cityIndex];
         $http.post('/index.php/Admin/County/county',$scope.editCounty).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
@@ -182,12 +227,278 @@ function countyCtrl($scope, $http, $rootScope,$state) {
     init();
 }
 
-function managerCtrl($scope, $timeout, $interval) {
+function villageCtrl($scope, $rootScope, $state,$http) {
+    //公用区
+    function init(){
+        if(!$rootScope.admin){
+            $state.go("login");
+            return;
+        }
+        $scope.curView = "list";
+        $scope.searchVillage = {
+            provinceIndex:"0",
+            cityIndex:"0",
+            countyIndex:"0"
+        };
+        setSearchInfo();
+    }
 
+    function getCounties(){
+        var searchInfo = $scope.searchVillage;
+        $http.get('/index.php/Admin/County/county?province='+searchInfo.province+"&city="+searchInfo.city).
+            success(function (data, status, headers, config) {
+                $scope.counties = data ? data : [];
+                $scope.searchVillage.countyIndex = "0";
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //List 区
+    function setSearchInfo(){
+        var provinces = $scope.provinces;
+        var searchInfo = $scope.searchVillage;
+        searchInfo.province = provinces[searchInfo.provinceIndex].name;
+        searchInfo.city = provinces[searchInfo.provinceIndex].cities[searchInfo.cityIndex];
+        getCounties();
+    }
+
+    $scope.changeSearchProvince = function(){
+        $scope.searchVillage.cityIndex = "0";
+        setSearchInfo();
+    }
+
+    $scope.changeSearchCity = function(){
+        setSearchInfo();
+    }
+
+    $scope.search = function(){
+        var county_index = $scope.searchVillage.countyIndex;
+        var searchStr = "?county_id="+$scope.counties[county_index].id;
+        $http.get('/index.php/Admin/Village/village' + searchStr).
+            success(function (data, status, headers, config) {
+                $scope.villages = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goDetail = function(id){
+        $scope.changeView("detail");
+        $http.get('/index.php/Admin/Village/village?id='+id).
+            success(function (data, status, headers, config) {
+                $scope.curVillage = data.village? data.village : {};
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goAdd = function(){
+        $scope.editVillage = { };
+        $scope.changeView("add");
+    }
+
+    //detail 区
+    $scope.goEdit = function(){
+        $scope.editVillage = $scope.curVillage;
+        $scope.changeView("edit");
+    }
+
+    $scope.remove = function(id){
+
+        $http.delete('/index.php/Admin/Village/village?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    // edit 区
+    $scope.add = function(){
+        var county_index = $scope.searchVillage.countyIndex;
+        $scope.editVillage.county_id = $scope.counties[county_index].id;
+        $http.post('/index.php/Admin/Village/village',$scope.editVillage).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        $http.put('/index.php/Admin/Village/village?id='+$scope.editVillage.id,$scope.editVillage).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+
+    init();
 }
 
-function userCtrl($scope, $http,$rootScope) {
+function managerCtrl($scope, $rootScope, $state,$http) {
+    //公用区
+    function init(){
+        if(!$rootScope.admin){
+            $state.go("login");
+            return;
+        }
+        $scope.curView = "list";
+        $scope.searchVillage = {
+            provinceIndex:"0",
+            cityIndex:"0",
+            countyIndex:"0",
+            villageIndex:"0"
+        };
+        setSearchInfo();
+    }
 
+    function getCounties(){
+        var searchInfo = $scope.searchVillage;
+        $http.get('/index.php/Admin/County/county?province='+searchInfo.province+"&city="+searchInfo.city).
+            success(function (data, status, headers, config) {
+                $scope.counties = data ? data : [];
+                $scope.searchVillage.countyIndex = "0";
+                if($scope.curView == "add"){
+                    getVillages();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.changeView = function(view){
+        $scope.curView = view;
+    }
+
+    //List 区
+    function setSearchInfo(){
+        var provinces = $scope.provinces;
+        var searchInfo = $scope.searchVillage;
+        searchInfo.province = provinces[searchInfo.provinceIndex].name;
+        searchInfo.city = provinces[searchInfo.provinceIndex].cities[searchInfo.cityIndex];
+        getCounties();
+    }
+
+    $scope.changeSearchProvince = function(){
+        $scope.searchVillage.cityIndex = "0";
+        setSearchInfo();
+    }
+
+    $scope.changeSearchCity = function(){
+        setSearchInfo();
+    }
+
+    $scope.search = function(){
+        var county_index = $scope.searchVillage.countyIndex;
+        var searchStr = "?county_id="+$scope.counties[county_index].id;
+        $http.get('/index.php/Admin/Manager/manager' + searchStr).
+            success(function (data, status, headers, config) {
+                $scope.managers = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goDetail = function(id){
+        $scope.changeView("detail");
+        $http.get('/index.php/Admin/Manager/manager?id='+id).
+            success(function (data, status, headers, config) {
+                $scope.curManager = data.manager? data.manager : {};
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.goAdd = function(){
+        $scope.editManager = { };
+        $scope.changeView("add");
+        getVillages();
+    }
+
+    //detail 区
+    $scope.goEdit = function(){
+        $scope.editManager = $scope.curManager;
+        $scope.changeView("edit");
+    }
+
+    $scope.remove = function(id){
+
+        $http.delete('/index.php/Admin/Manager/manager?id='+id,null).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    // edit 区
+    function getVillages(){
+        $scope.searchVillage.villageIndex = "0";
+        var county_index = $scope.searchVillage.countyIndex;
+        var searchStr = "?county_id="+$scope.counties[county_index].id;
+        $http.get('/index.php/Admin/Village/village'+searchStr).
+            success(function (data, status, headers, config) {
+                $scope.villages = data? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.add = function(){
+        var village_index = $scope.searchVillage.villageIndex;
+        $scope.editManager.village_id = $scope.villages[village_index].id;
+        $http.post('/index.php/Admin/Manager/manager',$scope.editManager).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    $scope.edit = function(){
+        $http.put('/index.php/Admin/Manager/manager?id='+$scope.editManager.id,$scope.editManager).
+            success(function (data, status, headers, config) {
+                if(data.code == 200){
+                    init();
+                }
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+
+    init();
 }
 
 //服务

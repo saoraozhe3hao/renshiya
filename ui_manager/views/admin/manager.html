@@ -1,19 +1,97 @@
-<div>
-    <div class="title"><span class="glyphicon glyphicon-piggy-bank">外快</span></div>
-    <a class="btn btn-default" href="#/gfqjz" role="button">高峰期兼职</a>
+<!--公共-->
+<div ng-show="curView == 'list'|| curView == 'add'">
+    <div>
+        <label>省：</label>
+        <select ng-model="searchVillage.provinceIndex" ng-change="changeSearchProvince()">
+            <option value ="{{$index}}" ng-repeat="province in provinces">{{province.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>地级市：</label>
+        <select ng-model="searchVillage.cityIndex" ng-change="changeSearchCity()">
+            <option value ="{{$index}}" ng-repeat="city in provinces[searchVillage.provinceIndex].cities">{{city}}</option>
+        </select>
+    </div>
+    <div>
+        <label>区县：</label>
+        <select ng-model="searchVillage.countyIndex" ng-change="changeSearchCounty()">
+            <option value ="{{$index}}" ng-repeat="county in counties">{{county.name}}</option>
+        </select>
+    </div>
 </div>
-
-<div class="title">
-    <div><div class="glyphicon glyphicon-road">出行</div></div>
-    <a class="btn btn-default" href="#/sbsfc" role="button">上班顺风车</a>
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div><input class="btn btn-default" type="button" value="搜索" ng-click="search()"></div>
+    <div>小区经理：</div>
+    <div ng-repeat="manager in managers">
+        <a href="" ng-click="goDetail(manager.id)">{{manager.name}} {{manager.building_num}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="添加小区经理" ng-click="goAdd()">
 </div>
-
-<div class="title">
-    <div><div class="glyphicon glyphicon-dashboard">开班</div></div>
-    <a class="btn btn-default" href="#/ban?field=5&category=2&subject=2" role="button">补习班</a>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curManager.name}} {{curManager.building_num}}</div>
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curManager.id)">
 </div>
-
-<div class="title">
-    <div><div class="glyphicon glyphicon-dashboard">服务</div></div>
-    <a class="btn btn-default" href="#/fuwu?field=2&category=1&subject=1" role="button">小学语文家教</a>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'|| curView == 'add'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div ng-show="curView == 'add'">
+        <label>小区：</label>
+        <select ng-model="searchVillage.villageIndex">
+            <option value ="{{$index}}" ng-repeat="village in villages">{{village.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>姓：</label>
+        <input type="text" ng-model="editManager.surname">
+    </div>
+    <div>
+        <label>身份证号：</label>
+        <input type="text" ng-model="editManager.card_num">
+    </div>
+    <div>
+        <label>楼号：</label>
+        <input type="text" ng-model="editManager.building_num">
+    </div>
+    <div>
+        <label>门牌号：</label>
+        <input type="text" ng-model="editManager.door_num">
+    </div>
+    <div>
+        <label>用户名：</label>
+        <input type="text" ng-model="editManager.username">
+    </div>
+    <div>
+        <label>密码：</label>
+        <input type="text" ng-model="editManager.password">
+    </div>
+    <div>
+        <label>性别：</label>
+        <input type="text" ng-model="editManager.sex">
+    </div>
+    <div>
+        <label>生日：</label>
+        <input type="text" ng-model="editManager.birthdate">
+    </div>
+    <div>
+        <label>名字：</label>
+        <input type="text" ng-model="editManager.name">
+    </div>
+    <div>
+        <label>电话：</label>
+        <input type="text" ng-model="editManager.phone">
+    </div>
+    <div>
+        <label>微信：</label>
+        <input type="text" ng-model="editManager.weixin">
+    </div>
+    <div>
+        <label>公众号：</label>
+        <input type="text" ng-model="editManager.gongzhonghao">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="add()" ng-if="!editManager.id">
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!editManager.id">
 </div>

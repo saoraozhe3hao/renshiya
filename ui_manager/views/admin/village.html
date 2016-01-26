@@ -1,0 +1,59 @@
+<!--公共-->
+<div ng-show="curView == 'list'|| curView == 'add'">
+    <div>
+        <label>省：</label>
+        <select ng-model="searchVillage.provinceIndex" ng-change="changeSearchProvince()">
+            <option value ="{{$index}}" ng-repeat="province in provinces">{{province.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>地级市：</label>
+        <select ng-model="searchVillage.cityIndex" ng-change="changeSearchCity()">
+            <option value ="{{$index}}" ng-repeat="city in provinces[searchVillage.provinceIndex].cities">{{city}}</option>
+        </select>
+    </div>
+    <div>
+        <label>区县：</label>
+        <select ng-model="searchVillage.countyIndex" ng-change="changeSearchCounty()">
+            <option value ="{{$index}}" ng-repeat="county in counties">{{county.name}}</option>
+        </select>
+    </div>
+</div>
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div><input class="btn btn-default" type="button" value="搜索" ng-click="search()"></div>
+    <div>小区：</div>
+    <div ng-repeat="village in villages">
+        <a href="" ng-click="goDetail(village.id)">{{village.name}} {{village.address}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="添加小区" ng-click="goAdd()">
+</div>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curVillage.name}} {{curVillage.address}}</div>
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curVillage.id)">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'|| curView == 'add'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>名称：</label>
+        <input type="text" ng-model="editVillage.name">
+    </div>
+    <div>
+        <label>地址：</label>
+        <input type="text" ng-model="editVillage.address">
+    </div>
+    <div>
+        <label>经度：</label>
+        <input type="text" ng-model="editVillage.longitude">
+    </div>
+    <div>
+        <label>纬度：</label>
+        <input type="text" ng-model="editVillage.latitude">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="add()" ng-if="!editVillage.id">
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!editVillage.id">
+</div>
