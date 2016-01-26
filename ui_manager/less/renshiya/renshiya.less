@@ -1,0 +1,68 @@
+//函数
+.transition(@attr,@time:0.5s){
+  -moz-transition: @attr @time; -webkit-transition: @attr @time;
+  -o-transition: @attr @time;transition: @attr @time;
+}
+.doubleTransition(@attr1,@attr2,@time:0.5s){
+  -moz-transition: @attr1 @time,@attr2 @time; -webkit-transition: @attr1 @time,@attr2 @time;
+  -o-transition: @attr1 @time,@attr2 @time;transition: @attr1 @time,@attr2 @time;
+}
+.borderRadius(@radius){
+  -moz-border-radius: @radius;      /* Gecko browsers */
+  -webkit-border-radius: @radius;   /* Webkit browsers */
+  border-radius:@radius;            /* W3C syntax */
+}
+.columnWidth(@width){
+  -webkit-column-width:@width;
+  -moz-column-width:@width;
+  -o-column-width:@width;
+  -ms-column-width:@width;
+}
+//初始化
+ul{  list-style-type:none;margin: 0}
+body {  font-family:"Microsoft YaHei";background-color: #F7F7F7;}
+@backColor: #F7F7F7;
+@boderColor:#101010;
+
+#navigate{
+  position:fixed;
+  bottom: 0;
+  width: 100%;
+   .item{
+     cursor: pointer;
+     width: 33%;
+     text-align: center;
+     float: left;
+   }
+}
+
+.select{
+  .item{
+    float: left;
+    margin:20px;
+    .card{
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      border:1px solid @boderColor;
+    }
+    .full{
+      background-color: red;
+    }
+    .enable{
+      background-color: green;
+    }
+    .selected{
+      background-color: blue;
+    }
+  }
+
+}
+
+#authentication{
+  position: fixed;
+  top: 20px;
+  left:20px;
+  z-index: 2;
+  background-color: yellowgreen;
+}

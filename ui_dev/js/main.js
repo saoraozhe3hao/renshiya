@@ -89,7 +89,7 @@ function topCtrl($rootScope,$scope, $state,$http) {
             success(function (data, status, headers, config) {
                 if(data.code == 200){
                     $rootScope.showPop("");
-                    $rootScope.user = data;
+                    $rootScope.user = data.user;
                 }
             }).
             error(function (data, status, headers, config) {
@@ -132,7 +132,7 @@ function mineCtrl($scope, $http,$rootScope) {
             return;
         }
     }
-    $scope.logout = function(id){
+    $scope.logout = function(){
         $http.get('/index.php/User/Auth/logout').
             success(function (data, status, headers, config) {
                 window.user = "";

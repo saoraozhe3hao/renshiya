@@ -45,7 +45,7 @@ class AuthController  extends RestController {
             $_SESSION["user"] = $userData;
             $memberData = $Member->where( 'user_id='.$userData['id'])->find();
             $_SESSION["member"] = $memberData;
-            echo $this->response(array("code"=>200,"data"=>$userData),'json');
+            echo $this->response(array("code"=>200,"user"=>$userData),'json');
         }
         else{
             echo $this->response(array("code"=>400),'json');

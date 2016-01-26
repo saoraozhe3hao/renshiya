@@ -1,4 +1,5 @@
 <?php
+//复制模块时，记得改 namespace 和 class
 namespace Addition\Controller;
 use Think\Controller\RestController;
 class GfqjzController  extends RestController {

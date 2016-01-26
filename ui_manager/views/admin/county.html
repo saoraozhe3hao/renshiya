@@ -1,0 +1,38 @@
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div>区县：</div>
+    <div ng-repeat="county in counties">
+        <a href="" ng-click="goDetail(county.id)">{{county.province}} {{county.city}} {{county.name}}</a>
+    </div>
+    <input class="btn btn-default" type="button" value="添加区县" ng-click="goAdd()">
+</div>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curCounty.province}} {{curCounty.city}} {{curCounty.name}}
+    </div>
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curCounty.id)">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>省：</label>
+        <select ng-model="editCounty.provinceIndex" ng-change="changeProvince()">
+            <option value ="{{$index}}" ng-repeat="province in provinces">{{province.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>地级市：</label>
+        <select ng-model="editCounty.cityIndex">
+            <option value ="{{$index}}" ng-repeat="city in provinces[editCounty.provinceIndex].cities">{{city}}</option>
+        </select>
+    </div>
+    <div>
+        <label>区县：</label>
+        <input type="text" ng-model="editCounty.name">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="add()" ng-if="!editCounty.id">
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()" ng-if="!!editCounty.id">
+</div>
