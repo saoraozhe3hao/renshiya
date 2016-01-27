@@ -59,12 +59,12 @@ module.exports = function (grunt) {
             dist: {
                 files: [
                     //expand 为true，src匹配所有；否则只匹配一个。
-                    {expand: true, src: 'fonts/*', dest: '../ui/'},
-                    {src: ['index.php'], dest: '../ui/'},
-                    {expand: true, src: 'js/*', dest: '../ui/'},
-                    {expand: true, src: 'views/**', dest: '../ui/'},
-                    {expand: true, src: 'css/*', dest: '../ui/'},
-                    {expand: true, src: 'img/*', dest: '../ui/'}
+                    {expand: true, src: 'fonts/*', dest: '../ui_manager/'},
+                    {src: ['*.php'], dest: '../ui_manager/'},
+                    {expand: true, src: 'js/*', dest: '../ui_manager/'},
+                    {expand: true, src: 'views/**', dest: '../ui_manager/'},
+                    {expand: true, src: 'css/*', dest: '../ui_manager/'},
+                    {expand: true, src: 'img/*', dest: '../ui_manager/'}
                 ]
             },
             ready: {

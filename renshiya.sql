@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost:3306
--- 生成日期: 2016 年 01 月 27 日 03:31
+-- 生成日期: 2016 年 01 月 27 日 12:00
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -161,65 +161,6 @@ INSERT INTO `county` (`id`, `province`, `city`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `manager`
---
-
-CREATE TABLE IF NOT EXISTS `manager` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `village_id` int(11) NOT NULL,
-  `surname` varchar(20) NOT NULL COMMENT '姓氏',
-  `card_num` varchar(20) NOT NULL COMMENT '身份证号',
-  `building_num` varchar(20) NOT NULL COMMENT '楼号',
-  `door_num` varchar(20) NOT NULL COMMENT '门牌号',
-  `username` varchar(64) NOT NULL COMMENT '用户名',
-  `password` varchar(32) NOT NULL COMMENT '密码',
-  `status` int(11) NOT NULL COMMENT '状态码，0：未开启；1：正常；2：关闭',
-  `balance` float NOT NULL COMMENT '账号余额',
-  `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '加入时间',
-  `avatar` varchar(50) NOT NULL COMMENT '头像位置',
-  `sex` int(11) NOT NULL COMMENT ' 性别，0：未确定；1：男；2：女',
-  `birthdate` date NOT NULL COMMENT '出生日期',
-  `name` varchar(20) NOT NULL COMMENT '名，与姓分开',
-  `phone` varchar(15) CHARACTER SET utf8mb4 NOT NULL COMMENT '手机号',
-  `weixin` varchar(20) NOT NULL COMMENT '微信号',
-  `gongzhonghao` varchar(40) NOT NULL COMMENT '微信公众号',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_number` (`card_num`),
-  UNIQUE KEY `username` (`username`),
-  KEY `village_id` (`village_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='小区经理表' AUTO_INCREMENT=3 ;
-
---
--- 转存表中的数据 `manager`
---
-
-INSERT INTO `manager` (`id`, `village_id`, `surname`, `card_num`, `building_num`, `door_num`, `username`, `password`, `status`, `balance`, `join_time`, `avatar`, `sex`, `birthdate`, `name`, `phone`, `weixin`, `gongzhonghao`) VALUES
-(1, 1, '熊', '350881199010230372', 'A栋', '1008', 'hong', '38906cb4cbe2a72f8592cd501fe0a1e4', 1, 0, '2016-01-19 16:00:00', '', 1, '1987-09-02', '站营4', '15202926290', '15202926290', '锦业名铺'),
-(2, 1, '洪', 'e', '33', '33', '33', '182be0c5cdcd5072bb1864cdee4d3d6e', 0, 0, '2016-01-26 07:31:28', '', 1, '1990-10-23', 'dd', 'dd', 'dd', 'dd');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `manager_bill`
---
-
-CREATE TABLE IF NOT EXISTS `manager_bill` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `manager_id` int(11) NOT NULL COMMENT '小区经理ID',
-  `type` int(11) NOT NULL COMMENT '小区经理账单类型，0：提成；1：提现',
-  `event` varchar(200) NOT NULL COMMENT '事件：何人接收何服务交易多少钱产生提成',
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '发生时间',
-  `balance` float NOT NULL COMMENT '事件发生后，小区经理的余额',
-  `turnover` float NOT NULL COMMENT '成交金额',
-  `service_type` int(11) NOT NULL COMMENT '服务类型编号',
-  `service_id` int(11) NOT NULL COMMENT '服务ID',
-  PRIMARY KEY (`id`),
-  KEY `manager_id` (`manager_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小区经理提成日志' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- 表的结构 `member`
 --
 
@@ -228,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `user_id` int(11) NOT NULL,
   `door_num` varchar(20) NOT NULL COMMENT '门牌号',
   `description` varchar(512) NOT NULL COMMENT '个人描述',
-  `house_auth` int(11) NOT NULL DEFAULT '0' COMMENT '0：未认证；1：家庭自有住房；2：租住；3：住户亲友',
+  `house_auth` varchar(128) NOT NULL DEFAULT '',
   `cert_auth` varchar(512) NOT NULL COMMENT '证件认证，以分号隔开',
   `prof_auth` varchar(128) NOT NULL COMMENT 'profession职业认证，以逗号分隔',
   `prop_auth` varchar(512) NOT NULL COMMENT 'property产权认证，以分号隔开',
@@ -244,9 +185,9 @@ CREATE TABLE IF NOT EXISTS `member` (
 --
 
 INSERT INTO `member` (`id`, `user_id`, `door_num`, `description`, `house_auth`, `cert_auth`, `prof_auth`, `prop_auth`, `balance`, `building_num`, `birthdate`) VALUES
-(1, 7, '', 'msmsmsm788', 0, '', '', '', 0, '', '0000-00-00'),
-(2, 8, '', '', 0, '', '', '', 0, '', '0000-00-00'),
-(3, 9, '', '', 0, '', '', '', 0, '', '0000-00-00');
+(1, 7, '', 'msmsmsm788', '0', '', '', '', 0, '', '0000-00-00'),
+(2, 8, '', '', '0', '', '', '', 0, '', '0000-00-00'),
+(3, 9, '', '', '0', '', '', '', 0, '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -568,18 +509,6 @@ ALTER TABLE `add_gfqjz_position`
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_by`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_to`) REFERENCES `user` (`id`);
-
---
--- 限制表 `manager`
---
-ALTER TABLE `manager`
-  ADD CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`village_id`) REFERENCES `village` (`id`);
-
---
--- 限制表 `manager_bill`
---
-ALTER TABLE `manager_bill`
-  ADD CONSTRAINT `manager_bill_ibfk_1` FOREIGN KEY (`manager_id`) REFERENCES `manager` (`id`);
 
 --
 -- 限制表 `member`

@@ -1,0 +1,54 @@
+<!--公共-->
+<div ng-show="curView == 'list'|| curView == 'add'">
+    <div>
+        <label>省：</label>
+        <select ng-model="searchVillage.provinceIndex" ng-change="changeSearchProvince()">
+            <option value ="{{$index}}" ng-repeat="province in provinces">{{province.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>地级市：</label>
+        <select ng-model="searchVillage.cityIndex" ng-change="changeSearchCity()">
+            <option value ="{{$index}}" ng-repeat="city in provinces[searchVillage.provinceIndex].cities">{{city}}</option>
+        </select>
+    </div>
+    <div>
+        <label>区县：</label>
+        <select ng-model="searchVillage.countyIndex" ng-change="changeSearchCounty()">
+            <option value ="{{$index}}" ng-repeat="county in counties">{{county.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>小区：</label>
+        <select ng-model="searchVillage.villageIndex">
+            <option value ="{{$index}}" ng-repeat="village in villages">{{village.name}}</option>
+        </select>
+    </div>
+</div>
+<!-- 列表 -->
+<div ng-show="curView == 'list'">
+    <div><input class="btn btn-default" type="button" value="搜索" ng-click="search()"></div>
+    <div ng-repeat="user in users">
+        <a href="" ng-click="goDetail(user.id)">{{user.username}} {{user.sex}}</a>
+    </div>
+</div>
+<!-- 详情 -->
+<div ng-show="curView == 'detail'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>{{curUser.username}} {{curUser.sex}} {{curMember.description}}</div>
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove()">
+</div>
+<!-- 编辑 -->
+<div ng-show="curView == 'edit'">
+    <div><a href="" ng-click="changeView('list')">返回</a></div>
+    <div>
+        <label>姓：</label>
+        <input type="text" ng-model="editUser.surname">
+    </div>
+    <div>
+        <label>描述：</label>
+        <input type="text" ng-model="editMember.description">
+    </div>
+    <input class="btn btn-default" type="button" value="提交" ng-click="edit()">
+</div>

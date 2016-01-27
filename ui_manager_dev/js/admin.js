@@ -18,10 +18,10 @@ var app = angular.module("renshiya", ['ui.router']).
                     templateUrl: 'views/admin/village.html',
                     controller: villageCtrl
                 })
-                .state('manager', {
-                    url: '/manager',
-                    templateUrl: 'views/admin/manager.html',
-                    controller: managerCtrl
+                .state('user', {
+                    url: '/user',
+                    templateUrl: 'views/admin/user.html',
+                    controller: userCtrl
                 });
         }
     ]);
@@ -355,7 +355,8 @@ function villageCtrl($scope, $rootScope, $state,$http) {
     init();
 }
 
-function managerCtrl($scope, $rootScope, $state,$http) {
+//用户管理
+function userCtrl($scope, $rootScope, $state,$http) {
     //公用区
     function init(){
         if(!$rootScope.admin){
@@ -378,9 +379,20 @@ function managerCtrl($scope, $rootScope, $state,$http) {
             success(function (data, status, headers, config) {
                 $scope.counties = data ? data : [];
                 $scope.searchVillage.countyIndex = "0";
-                if($scope.curView == "add"){
-                    getVillages();
-                }
+                getVillages();
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
+    function getVillages(){
+        $scope.searchVillage.villageIndex = "0";
+        var county_index = $scope.searchVillage.countyIndex;
+        var searchStr = "?county_id="+$scope.counties[county_index].id;
+        $http.get('/index.php/Admin/Village/village'+searchStr).
+            success(function (data, status, headers, config) {
+                $scope.villages = data? data : [];
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
@@ -392,6 +404,7 @@ function managerCtrl($scope, $rootScope, $state,$http) {
     }
 
     //List 区
+
     function setSearchInfo(){
         var provinces = $scope.provinces;
         var searchInfo = $scope.searchVillage;
@@ -410,11 +423,11 @@ function managerCtrl($scope, $rootScope, $state,$http) {
     }
 
     $scope.search = function(){
-        var county_index = $scope.searchVillage.countyIndex;
-        var searchStr = "?county_id="+$scope.counties[county_index].id;
-        $http.get('/index.php/Admin/Manager/manager' + searchStr).
+        var village_index = $scope.searchVillage.villageIndex;
+        var searchStr = "?village_id="+$scope.villages[village_index].id;
+        $http.get('/index.php/Admin/User/user' + searchStr).
             success(function (data, status, headers, config) {
-                $scope.managers = data ? data : [];
+                $scope.users = data ? data : [];
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
@@ -423,30 +436,26 @@ function managerCtrl($scope, $rootScope, $state,$http) {
 
     $scope.goDetail = function(id){
         $scope.changeView("detail");
-        $http.get('/index.php/Admin/Manager/manager?id='+id).
+        $http.get('/index.php/Admin/User/user?id='+id).
             success(function (data, status, headers, config) {
-                $scope.curManager = data.manager? data.manager : {};
+                $scope.curUser = data.user? data.user : {};
+                $scope.curMember = data.member? data.member : {};
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
             });
     }
 
-    $scope.goAdd = function(){
-        $scope.editManager = { };
-        $scope.changeView("add");
-        getVillages();
-    }
-
     //detail 区
     $scope.goEdit = function(){
-        $scope.editManager = $scope.curManager;
+        $scope.editUser = $scope.curUser;
+        $scope.editMember = $scope.curMember;
         $scope.changeView("edit");
     }
 
     $scope.remove = function(id){
 
-        $http.delete('/index.php/Admin/Manager/manager?id='+id,null).
+        $http.delete('/index.php/Admin/User/user?id='+id,null).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
                     init();
@@ -458,35 +467,12 @@ function managerCtrl($scope, $rootScope, $state,$http) {
     }
 
     // edit 区
-    function getVillages(){
-        $scope.searchVillage.villageIndex = "0";
-        var county_index = $scope.searchVillage.countyIndex;
-        var searchStr = "?county_id="+$scope.counties[county_index].id;
-        $http.get('/index.php/Admin/Village/village'+searchStr).
-            success(function (data, status, headers, config) {
-                $scope.villages = data? data : [];
-            }).
-            error(function (data, status, headers, config) {
-                console.log(status);
-            });
-    }
-
-    $scope.add = function(){
-        var village_index = $scope.searchVillage.villageIndex;
-        $scope.editManager.village_id = $scope.villages[village_index].id;
-        $http.post('/index.php/Admin/Manager/manager',$scope.editManager).
-            success(function (data, status, headers, config) {
-                if(data.code == 200){
-                    init();
-                }
-            }).
-            error(function (data, status, headers, config) {
-                console.log(status);
-            });
-    }
-
     $scope.edit = function(){
-        $http.put('/index.php/Admin/Manager/manager?id='+$scope.editManager.id,$scope.editManager).
+        var editData = {
+            user:$scope.editUser,
+            member:$scope.editMember
+        }
+        $http.put('/index.php/Manager/User/user?id='+$scope.editUser.id,editData).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
                     init();
@@ -496,7 +482,6 @@ function managerCtrl($scope, $rootScope, $state,$http) {
                 console.log(status);
             });
     }
-
 
     init();
 }

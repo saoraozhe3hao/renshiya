@@ -1,6 +1,6 @@
 <?php
 //复制模块时，记得改 namespace 和 class
-namespace Manager\Controller;
+namespace Admin\Controller;
 use Think\Controller\RestController;
 class UserController  extends RestController {
     
@@ -18,7 +18,7 @@ class UserController  extends RestController {
             $data = array('user'=>$userData,'member'=>$memberData);
         }
         else {
-            $where =  'village_id='.$_SESSION['manager']['village_id'];
+            $where =  'village_id='.$_GET['village_id'];
             $data = $User->where($where)->select();
         }
         
@@ -35,4 +35,11 @@ class UserController  extends RestController {
         echo $this->response(array("code"=>"200"),'json');
     }
    
+    public function user_delete(){
+        $User = M("User");
+        
+        $data = array( 'status'=>2 );
+        $User ->where('id='.$_GET['id'])->save($data);
+        echo $this->response(array("code"=>"200"),'json');
+    }
 }

@@ -19,7 +19,7 @@
 <div id="navigate">
     <div class="item"><a href="#/county">区县管理</a></div>
     <div class="item"><a href="#/village">小区管理</a></div>
-    <div class="item"><a href="#/manager">小区经理管理</a></div>
+    <div class="item"><a href="#/user">用户管理</a></div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
