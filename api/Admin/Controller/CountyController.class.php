@@ -15,14 +15,19 @@ class CountyController  extends RestController {
             $countyData = $County->where( 'id='.$_GET['id'] )->find();
             $data = array('county'=>$countyData);
         }
-        else{
-            $data = $County -> select();
+        else {
+            $where =  '';
+            if( isset( $_GET['province'] ) ){
+                $where = $where.'province="'.$_GET['province'].'"';
+            }
+            if( isset( $_GET['city'] ) ){
+                $where = $where.' AND city="'.$_GET['city'].'"';
+            }
+            $data = $County->where($where)->select();
         }
         
         echo $this->response($data,'json');
     }
-    
-    
     
     public function county_post(){
         $County = M("County");

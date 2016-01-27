@@ -13,14 +13,14 @@ class GfqjzController  extends RestController {
         $Position = M("Add_gfqjz_position");
         $Instance = M("Add_gfqjz_instance");
         //使用空模型访问数据库
-        $model = M();
+        $Model = M();
         
        
         if( isset( $_GET['id'] ) ){
             //查询详情
             $pasitionData = $Position->where( 'status=0 AND id='.$_GET['id'] )->find();
             $instanceData = $Instance->where('position_id='.$_GET['id'].' AND TO_DAYS(serve_date)>TO_DAYS(NOW())' )->order('serve_date')->select();
-            $CommentData = $model->query('select comment.* from add_gfqjz_instance instance,comment'.
+            $CommentData = $Model->query('select comment.* from add_gfqjz_instance instance,comment'.
                 ' where instance.position_id='.$_GET['id'].' AND comment.service_id=instance.id AND comment.comment_to='.$pasitionData['publish_id']);
             $data = array('time'=>time(),'position'=>$pasitionData,'instance'=>$instanceData,'comment'=>$CommentData);
         }
