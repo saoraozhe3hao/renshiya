@@ -20,13 +20,13 @@ class FuwuController  extends RestController {
         }
         else{
             $where =  'status=1';
-            if( isset( $_GET['field'] ) ){
+            if( isset( $_GET['field'] )  &&  $_GET['field'] != ""  ){
                 $where = $where.' AND field='. $_GET['field'] ;
             }
-            if( isset( $_GET['category'] ) ){
+            if( isset( $_GET['category'] )  &&  $_GET['category'] != ""  ){
                 $where = $where.' AND category='.$_GET['category'];
             }
-            if( isset( $_GET['subject'] ) ){
+            if( isset( $_GET['subject'] )  &&  $_GET['subject'] != ""  ){
                 $where = $where.' AND subject='.$_GET['subject'];
             }
             $data = $Item->where($where)->select();

@@ -29,27 +29,27 @@ var app = angular.module("renshiya", ['ui.router']).
                     controller: commentCtrl
                 })
                 .state('account', {
-                    url: '/account',
+                    url: '/account?from',
                     templateUrl: 'views/mine/account.html',
                     controller: accountCtrl
                 })
                 .state('gfqjz', {
-                    url: '/gfqjz',
+                    url: '/gfqjz?from',
                     templateUrl: 'views/addition/gfqjz.html',
                     controller: gfqjzCtrl
                 })
                 .state('sbsfc', {
-                    url: '/sbsfc',
+                    url: '/sbsfc?from',
                     templateUrl: 'views/service/sbsfc.html',
                     controller: sbsfcCtrl
                 })
                 .state('ban', {
-                    url: '/ban?field&category&subject',
+                    url: '/ban?from&field&category&subject',
                     templateUrl: 'views/service/ban.html',
                     controller: banCtrl
                 })
                 .state('fuwu', {
-                    url: '/fuwu',
+                    url: '/fuwu?from&field&category&subject',
                     templateUrl: 'views/service/fuwu.html',
                     controller: fuwuCtrl
                 });
@@ -65,6 +65,8 @@ function topCtrl($rootScope,$scope, $state,$http) {
 
     function init(){
         $rootScope.$state = $state;
+        $rootScope.ban_fields = window.ban_field;
+        $rootScope.fuwu_fields = window.fuwu_field;
         if(window.user){
             $rootScope.user = JSON.parse(window.user);
         }
@@ -118,15 +120,16 @@ function topCtrl($rootScope,$scope, $state,$http) {
 
     init();
 }
-function findCtrl($scope, $timeout, $interval) {
-
+function findCtrl($scope, $rootScope, $stateParams) {
+    $rootScope.from = $stateParams.from;
 }
-function publishCtrl($scope, $timeout, $interval) {
-
+function publishCtrl($scope, $rootScope, $stateParams) {
+    $rootScope.from = $stateParams.from;
 }
-function mineCtrl($scope, $http,$rootScope) {
+function mineCtrl($scope, $http,$rootScope,$stateParams) {
 
     function init(){
+        $rootScope.from = $stateParams.from;
         if(!$rootScope.user){
             $rootScope.showPop('login');
             return;
@@ -277,11 +280,12 @@ function accountCtrl($scope, $http) {
 }
 
 //外快 高峰期兼职
-function gfqjzCtrl($scope,$rootScope, $http,timeService) {
+function gfqjzCtrl($scope,$rootScope, $http,timeService,$stateParams) {
 
     //公用区
     function init(){
         $scope.curView = "list";
+        $rootScope.from = $stateParams.from;
 
         $http.get('/index.php/Addition/Gfqjz/position').
             success(function (data, status, headers, config) {
@@ -447,11 +451,13 @@ function gfqjzCtrl($scope,$rootScope, $http,timeService) {
 }
 
 //服务 上班顺风车
-function sbsfcCtrl($scope,$rootScope, $http,timeService) {
+function sbsfcCtrl($scope,$rootScope, $http,timeService,$stateParams) {
 
     //公共区
     function init(){
         $scope.curView = "list";
+        $rootScope.from = $stateParams.from;
+
         $http.get('/index.php/Service/Sbsfc/route').
             success(function (data, status, headers, config) {
                 $scope.routes = data ? data : [];
@@ -613,7 +619,17 @@ function banCtrl($scope,$rootScope, $http,$stateParams) {
     //公共区
     function init(){
         $scope.curView = "list";
-        $http.get('/index.php/Service/Ban/class',$stateParams).
+        $rootScope.from = $stateParams.from;
+        $scope.searchInfo = {
+            fieldIndex:$stateParams.field ? $stateParams.field : 1,
+            categoryIndex:$stateParams.category ? $stateParams.category : "",
+            subjectIndex:$stateParams.subject ? $stateParams.subject : ""
+        }
+        $scope.categories = $scope.ban_fields[$scope.searchInfo.fieldIndex]['category'];
+        $scope.subjects = $scope.searchInfo.categoryIndex ? $scope.categories[$scope.searchInfo.categoryIndex]['subject'] : null;
+        var searchStr = "?field="+$scope.searchInfo.fieldIndex+"&category="+
+            $scope.searchInfo.categoryIndex+"&subject="+$scope.searchInfo.subjectIndex;
+        $http.get('/index.php/Service/Ban/class'+searchStr).
             success(function (data, status, headers, config) {
                 $scope.classes = data ? data : [];
             }).
@@ -622,11 +638,37 @@ function banCtrl($scope,$rootScope, $http,$stateParams) {
             });
     }
 
+    $scope.selectField = function(index){
+        $scope.searchInfo.fieldIndex = index;
+        $scope.categories = $scope.ban_fields[index]['category'];
+        $scope.selectCategory("");
+    }
+    $scope.selectCategory = function(index){
+        $scope.searchInfo.categoryIndex = index;
+        $scope.subjects = index ? $scope.categories[index]['subject'] : null;
+        $scope.selectSubject("");
+    }
+    $scope.selectSubject = function(index){
+        $scope.searchInfo.subjectIndex = index;
+    }
+
     $scope.changeView = function(view){
         $scope.curView = view;
     }
 
     //list 区
+    $scope.search = function(){
+        var searchStr = "?field="+$scope.searchInfo.fieldIndex+"&category="+
+            $scope.searchInfo.categoryIndex+"&subject="+$scope.searchInfo.subjectIndex;
+        $http.get('/index.php/Service/Ban/class'+searchStr).
+            success(function (data, status, headers, config) {
+                $scope.classes = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
     $scope.goDetail = function(id){
         $scope.changeView("detail");
         $http.get('/index.php/Service/Ban/class?id='+id).
@@ -645,7 +687,7 @@ function banCtrl($scope,$rootScope, $http,$stateParams) {
 
     $scope.goAdd = function(){
         $scope.editClass = {};
-        $scope.changeView("edit");
+        $scope.changeView("add");
     }
 
     //detail 区
@@ -723,12 +765,22 @@ function banCtrl($scope,$rootScope, $http,$stateParams) {
 }
 
 //服务 一般服务
-function fuwuCtrl($scope,$rootScope, $http,timeService) {
+function fuwuCtrl($scope,$rootScope, $http,$stateParams) {
 
     //公共区
     function init(){
         $scope.curView = "list";
-        $http.get('/index.php/Service/Fuwu/item').
+        $rootScope.from = $stateParams.from;
+        $scope.searchInfo = {
+            fieldIndex:$stateParams.field ? $stateParams.field : 1,
+            categoryIndex:$stateParams.category ? $stateParams.category : "",
+            subjectIndex:$stateParams.subject ? $stateParams.subject : ""
+        }
+        $scope.categories = $scope.fuwu_fields[$scope.searchInfo.fieldIndex]['category'];
+        $scope.subjects = $scope.searchInfo.categoryIndex ? $scope.categories[$scope.searchInfo.categoryIndex]['subject'] : null;
+        var searchStr = "?field="+$scope.searchInfo.fieldIndex+"&category="+
+            $scope.searchInfo.categoryIndex+"&subject="+$scope.searchInfo.subjectIndex;
+        $http.get('/index.php/Service/Fuwu/item'+searchStr).
             success(function (data, status, headers, config) {
                 $scope.items = data ? data : [];
             }).
@@ -737,11 +789,37 @@ function fuwuCtrl($scope,$rootScope, $http,timeService) {
             });
     }
 
+    $scope.selectField = function(index){
+        $scope.searchInfo.fieldIndex = index;
+        $scope.categories = $scope.fuwu_fields[index]['category'];
+        $scope.selectCategory("");
+    }
+    $scope.selectCategory = function(index){
+        $scope.searchInfo.categoryIndex = index;
+        $scope.subjects = index ? $scope.categories[index]['subject'] : null;
+        $scope.selectSubject("");
+    }
+    $scope.selectSubject = function(index){
+        $scope.searchInfo.subjectIndex = index;
+    }
+
     $scope.changeView = function(view){
         $scope.curView = view;
     }
 
     //list 区
+    $scope.search = function(){
+        var searchStr = "?field="+$scope.searchInfo.fieldIndex+"&category="+
+            $scope.searchInfo.categoryIndex+"&subject="+$scope.searchInfo.subjectIndex;
+        $http.get('/index.php/Service/Fuwu/item'+searchStr).
+            success(function (data, status, headers, config) {
+                $scope.items = data ? data : [];
+            }).
+            error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
+
     $scope.goDetail = function(id){
         $scope.changeView("detail");
         $http.get('/index.php/Service/Fuwu/item?id='+id).

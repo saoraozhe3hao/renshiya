@@ -1,5 +1,11 @@
 <!-- 查看 -->
 <div><a href="#/mine">返回</a></div>
 <div ng-show="curView == 'detail'">
-    {{user.username}}
+    <div><label>用户名：</label>{{user.username}}</div>
+    <div><label>姓：</label>{{user.surname}}</div>
+    <div><label>性别：</label>{{user.sex}}</div>
+    <div><label>电话：</label>{{user.phone}}</div>
+    <div><label>职业：</label>{{user.profession}}</div>
+    <div><label>出生日期：</label>{{user.birthdate}}</div>
+    <div><label>个人描述：</label>{{user.description}}</div>
 </div>

@@ -228,7 +228,7 @@ window.ban_field = {
         name: '旅游团',
         category: {
             1: {
-                name: '郊区游'
+                name: '周边游'
             },
             2: {
                 name: '登山'
@@ -257,7 +257,7 @@ window.ban_field = {
                 }
             },
             4: {
-                name: '出境',
+                name: '境外',
                 subject: {
                     1: {
                         name: '东南亚'
@@ -330,9 +330,6 @@ window.fuwu_field = {
                 "name":"保姆"
             },
             5:{
-                "name":"月嫂"
-            },
-            6:{
                 "name":"清洁"
             }
         }
@@ -547,10 +544,10 @@ window.fuwu_field = {
                     4: {
                         name: '北美'
                     },
-                    4: {
+                    5: {
                         name: '日韩'
                     },
-                    5: {
+                    6: {
                         name: '港台澳'
                     }
                 }
@@ -604,7 +601,7 @@ window.fuwu_field = {
             2:{
                 "name":"搬家"
             },
-            2:{
+            3:{
                 "name":"代驾"
             }
         }

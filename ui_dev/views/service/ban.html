@@ -1,9 +1,29 @@
+<!-- 公共 -->
+<div><a href="#/{{from}}">返回</a></div>
+<div ng-show="(from == 'find' && curView == 'list') || curView == 'add'">
+    <div>
+        <label>领域：</label>
+        <a class="btn btn-default" href="" ng-repeat="field in ban_fields" ng-click="selectField($index + 1)"
+           ng-class="{'btn-info':searchInfo.fieldIndex == $index + 1}">{{field.name}}</a>
+    </div>
+    <div>
+        <label>类别：</label>
+        <a class="btn btn-default" href="" ng-repeat="category in categories" ng-click="selectCategory($index + 1)"
+           ng-class="{'btn-info':searchInfo.categoryIndex == $index + 1}">{{category.name}}</a>
+    </div>
+    <div ng-if="!!subjects">
+        <label>科目：</label>
+        <a class="btn btn-default" href="" ng-repeat="subject in subjects" ng-click="selectSubject($index + 1)"
+           ng-class="{'btn-info':searchInfo.subjectIndex == $index + 1}">{{subject.name}}</a>
+    </div>
+</div>
 <!-- 列表 -->
 <div ng-show="curView == 'list'">
+    <input class="btn btn-default" type="button" value="搜索" ng-click="search()"  ng-if="from == 'find'">
     <div ng-repeat="class in classes">
         <a href="" ng-click="goDetail(class.id)">{{class.title}}</a>
     </div>
-    <input class="btn btn-default" type="button" value="开班" ng-click="goAdd()">
+    <input class="btn btn-default" type="button" value="开班" ng-click="goAdd()" ng-if="from == 'publish'">
 </div>
 <!-- 详情 -->
 <div ng-show="curView == 'detail'">
@@ -14,9 +34,9 @@
     <!--报名情况-->
     <div ng-repeat="instance in instances">{{instance.claim_id}} 已报名</div>
 
-    <input class="btn btn-default" type="button" value="报名" ng-click="claim()">
-    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
-    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curClass.id)">
+    <input class="btn btn-default" type="button" value="报名" ng-click="claim()" ng-if="from == 'find'">
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()" ng-if="from == 'publish'">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curClass.id)" ng-if="from == 'publish'">
     <!--评论区-->
     <div>
         <div ng-repeat="comment in comments">
@@ -25,7 +45,7 @@
     </div>
 </div>
 <!-- 编辑 -->
-<div ng-show="curView == 'edit'">
+<div ng-show="curView == 'edit' || curView == 'add'">
     <div><a href="" ng-click="changeView('list')">返回</a></div>
     <div>
         <label>地点：</label>

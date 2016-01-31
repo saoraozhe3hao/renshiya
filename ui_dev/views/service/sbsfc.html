@@ -4,7 +4,7 @@
         <a href="" ng-click="goDetail(route.id)">{{route.dep_time}}从 {{route.dep_point}}出发，经过 {{route.point_1}}、
             {{route.point_2}}、{{route.point_3}}、{{route.point_4}}，终点{{route.end_point}}</a>
     </div>
-    <input class="btn btn-default" type="button" value="添加路线" ng-click="goAdd()">
+    <input class="btn btn-default" type="button" value="添加路线" ng-click="goAdd()" ng-if="from == 'publish'">
 </div>
 <!-- 详情 -->
 <div ng-show="curView == 'detail'">
@@ -53,9 +53,9 @@
             <div><a href="" ng-click="goClaimInfo($index)">查看占座情况</a></div>
         </div>
     </div>
-    <input class="btn btn-default" type="button" value="认领" ng-click="claim()">
-    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
-    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curRoute.id)">
+    <input class="btn btn-default" type="button" value="认领" ng-click="claim()" ng-if="from == 'find'">
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()" ng-if="from == 'publish'">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curRoute.id)" ng-if="from == 'publish'">
     <!--评论区-->
     <div>
         <div ng-repeat="comment in comments">

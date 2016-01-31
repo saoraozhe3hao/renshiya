@@ -5,7 +5,7 @@
         <a href="" ng-click="goDetail(position.id)">{{position.address}} {{position.description}} {{position.number}}
             {{position.reward}}元/天 {{position.spot}}</a>
     </div>
-    <input class="btn btn-default" type="button" value="添加岗位" ng-click="goAdd()">
+    <input class="btn btn-default" type="button" value="添加岗位" ng-click="goAdd()" ng-if="from == 'publish'">
 </div>
 <!-- 详情 -->
 <div ng-show="curView == 'detail'">
@@ -23,9 +23,9 @@
             <div><a href="" ng-click="goClaimInfo($index)">查看认领情况</a></div>
         </div>
     </div>
-    <input class="btn btn-default" type="button" value="认领" ng-click="claim()">
-    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()">
-    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curPosition.id)">
+    <input class="btn btn-default" type="button" value="认领" ng-click="claim()" ng-if="from == 'find'">
+    <input class="btn btn-default" type="button" value="修改" ng-click="goEdit()" ng-if="from == 'publish'">
+    <input class="btn btn-default" type="button" value="删除" ng-click="remove(curPosition.id)" ng-if="from == 'publish'">
     <!--评论区-->
     <div>
         <div ng-repeat="comment in comments">
@@ -37,7 +37,7 @@
 <div ng-show="curView == 'claimInfo'">
     <div><a href="" ng-click="changeView('detail')">返回</a></div>
     <div ng-repeat="instance in cards[curCardIndex].instances">
-        {{instance.claim_id}}<input class="btn btn-default" type="button" value="取消认领" ng-click="cancel(instance.id)">
+        {{instance.claim_id}}<input class="btn btn-default" type="button" value="取消认领" ng-click="cancel(instance.id)" ng-if="from == 'find'">
     </div>
 </div>
 <!-- 编辑 -->

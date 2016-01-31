@@ -12,14 +12,14 @@
     <link href="css/renshiya.css" rel="stylesheet">
 </head>
 <body ng-controller="topCtrl">
-<a href=""  ng-click="logout()">退出</a>
-<div>
+<ul class="nav nav-tabs nav-justified">
+  <li ng-class="{active:$state.current.name=='county'}"><a href="#/county">区县管理</a></li>
+  <li ng-class="{active:$state.current.name=='village'}"><a  href="#/village">小区管理</a></li>
+  <li ng-class="{active:$state.current.name=='user'}"><a href="#/user">用户管理</a></li>
+  <li><a href=""  ng-click="logout()">退出</a></li>
+</ul>
+<div style="padding:20px 20px;">
     <div ui-view></div>
-</div>
-<div id="navigate">
-    <div class="item"><a href="#/county">区县管理</a></div>
-    <div class="item"><a href="#/village">小区管理</a></div>
-    <div class="item"><a href="#/user">用户管理</a></div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

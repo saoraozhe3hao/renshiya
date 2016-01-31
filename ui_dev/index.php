@@ -12,13 +12,13 @@
     <link href="css/renshiya.css" rel="stylesheet">
 </head>
 <body ng-controller="topCtrl">
+<ul class="nav nav-tabs nav-justified">
+  <li ng-class="{active:$state.current.name=='find' || from == 'find'}"><a href="#/find">寻找</a></li>
+  <li ng-class="{active:$state.current.name=='publish' || from == 'publish'}"><a  href="#/publish">发布</a></li>
+  <li ng-class="{active:$state.current.name=='mine' || from == 'mine'}"><a href="#/mine">我的</a></li>
+</ul>
 <div>
     <div ui-view></div>
-</div>
-<div id="navigate">
-    <div class="item"><a href="#/find">寻找</a></div>
-    <div class="item"><a href="#/publish">发布</a></div>
-    <div class="item"><a href="#/mine">我的</a></div>
 </div>
 <div id="authentication">
     <div id="login" ng-show="popType == 'login'">

@@ -84,11 +84,18 @@ function countyCtrl($scope, $http, $rootScope,$state) {
             return;
         }
         $scope.curView = "list";
+        // select 的 value 得是 字符串
         $scope.searchCounty = {
             provinceIndex:"0",
             cityIndex:"0"
         };
         setSearchInfo();
+
+        $scope.editCounty = {
+            provinceIndex:"0",
+            cityIndex:"0"
+        };
+        setEditInfo();
         $http.get('/index.php/Admin/County/county').
             success(function (data, status, headers, config) {
                 $scope.counties = data ? data : [];
@@ -142,12 +149,6 @@ function countyCtrl($scope, $http, $rootScope,$state) {
     }
 
     $scope.goAdd = function(){
-        // select 的 value 得是 字符串
-        $scope.editCounty = {
-            provinceIndex:"0",
-            cityIndex:"0"
-        };
-        setEditInfo();
         $scope.changeView("edit");
     }
 
@@ -204,7 +205,7 @@ function countyCtrl($scope, $http, $rootScope,$state) {
         $http.post('/index.php/Admin/County/county',$scope.editCounty).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
-                    init();
+                    $scope.changeView("list");
                 }
             }).
             error(function (data, status, headers, config) {
@@ -216,7 +217,7 @@ function countyCtrl($scope, $http, $rootScope,$state) {
         $http.put('/index.php/Admin/County/county?id='+$scope.editCounty.id,$scope.editCounty).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
-                    init();
+                    $scope.goDetail($scope.editCounty.id);
                 }
             }).
             error(function (data, status, headers, config) {
@@ -428,6 +429,13 @@ function userCtrl($scope, $rootScope, $state,$http) {
         $http.get('/index.php/Admin/User/user' + searchStr).
             success(function (data, status, headers, config) {
                 $scope.users = data ? data : [];
+                var sexMap = {
+                    1:"先生",
+                    2:"女士"
+                }
+                for(var i=0;i<$scope.users.length;i++){
+                    $scope.users[i].name = $scope.users[i].surname + sexMap[$scope.users[i].sex];
+                }
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
@@ -440,6 +448,11 @@ function userCtrl($scope, $rootScope, $state,$http) {
             success(function (data, status, headers, config) {
                 $scope.curUser = data.user? data.user : {};
                 $scope.curMember = data.member? data.member : {};
+                var sexMap = {
+                    1:"先生",
+                    2:"女士"
+                }
+                $scope.curUser.name = $scope.curUser.surname + sexMap[$scope.curUser.sex];
             }).
             error(function (data, status, headers, config) {
                 console.log(status);
@@ -472,10 +485,10 @@ function userCtrl($scope, $rootScope, $state,$http) {
             user:$scope.editUser,
             member:$scope.editMember
         }
-        $http.put('/index.php/Manager/User/user?id='+$scope.editUser.id,editData).
+        $http.put('/index.php/Admin/User/user?id='+$scope.editUser.id,editData).
             success(function (data, status, headers, config) {
                 if(data.code == 200){
-                    init();
+                    $scope.goDetail($scope.editUser.id);
                 }
             }).
             error(function (data, status, headers, config) {
